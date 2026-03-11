@@ -789,10 +789,6 @@ function showNumberDetail(num) {
     speakNumber();
   },300);
 }
-  document.getElementById('number-detail').classList.add('show');
-  document.getElementById('number-detail').scrollIntoView({behavior:'smooth',block:'nearest'});
-  setTimeout(function(){ speak(NUMBER_WORDS[num],0.95); },300);
-}
 
 // BERHITUNG
 function setHitungMode(mode, btn) {
