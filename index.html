@@ -636,17 +636,29 @@ function speak(text, rate) {
   speechSynthesis.speak(utter);
 }
 function speakLetter() {
-  var btn = document.getElementById('main-speak-btn'); btn.classList.add('speaking');
-  var data = LETTER_DATA[currentLetter];
-  speak('Huruf '+currentLetter+'. Contoh kata: '+data.words.map(function(w){return w.w;}).join(', '), 0.95);
-  setTimeout(function(){btn.classList.remove('speaking');}, 2500);
+
+  var btn = document.getElementById('main-speak-btn');
+  if(btn) btn.classList.add('speaking');
+
+  speak(currentLetter);
+
+  setTimeout(function(){
+    if(btn) btn.classList.remove('speaking');
+  },1000);
+
 }
 function speakNumber() {
-  var btn = document.getElementById('num-speak-btn'); btn.classList.add('speaking');
-  speak(currentNumber+'. '+NUMBER_WORDS[currentNumber], 0.95);
-  setTimeout(function(){btn.classList.remove('speaking');}, 2000);
+
+  var btn = document.getElementById('num-speak-btn');
+  if(btn) btn.classList.add('speaking');
+
+  speak(NUMBER_WORDS[currentNumber], 0.9);
+
+  setTimeout(function(){
+    if(btn) btn.classList.remove('speaking');
+  },1200);
+
 }
-function speakWord(word){ speak(word, 0.95); }
 
 // ALPHABET
 function buildAlphabetGrid() {
