@@ -620,45 +620,23 @@ function showAngkaTab(btn, id) {
 
 // SPEECH
 function speak(text, rate) {
-
-  // menghentikan suara sebelumnya agar tidak menumpuk
-  if (speechSynthesis.speaking) {
-    speechSynthesis.cancel();
-  }
-
-  var utter = new SpeechSynthesisUtterance(text);
-
-  utter.lang = 'id-ID';
-  utter.rate = rate || 0.9;
-  utter.pitch = 1.1;
-  utter.volume = 1;
-
-  speechSynthesis.speak(utter);
+  if(!synth) return; synth.cancel();
+  var utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'id-ID'; utt.rate = rate||1.0; utt.pitch = 1.1;
+  synth.speak(utt);
 }
 function speakLetter() {
-
-  var btn = document.getElementById('main-speak-btn');
-  if(btn) btn.classList.add('speaking');
-
-  speak(currentLetter);
-
-  setTimeout(function(){
-    if(btn) btn.classList.remove('speaking');
-  },1000);
-
+  var btn = document.getElementById('main-speak-btn'); btn.classList.add('speaking');
+  var data = LETTER_DATA[currentLetter];
+  speak('Huruf '+currentLetter+'. Contoh kata: '+data.words.map(function(w){return w.w;}).join(', '), 0.95);
+  setTimeout(function(){btn.classList.remove('speaking');}, 2500);
 }
 function speakNumber() {
-
-  var btn = document.getElementById('num-speak-btn');
-  if(btn) btn.classList.add('speaking');
-
-  speak(NUMBER_WORDS[currentNumber], 0.9);
-
-  setTimeout(function(){
-    if(btn) btn.classList.remove('speaking');
-  },1200);
-
+  var btn = document.getElementById('num-speak-btn'); btn.classList.add('speaking');
+  speak(currentNumber+'. '+NUMBER_WORDS[currentNumber], 0.95);
+  setTimeout(function(){btn.classList.remove('speaking');}, 2000);
 }
+function speakWord(word){ speak(word, 0.95); }
 
 // ALPHABET
 function buildAlphabetGrid() {
@@ -689,11 +667,6 @@ function showLetterDetail(letter) {
   document.getElementById('letter-detail').classList.add('show');
   document.getElementById('letter-detail').scrollIntoView({behavior:'smooth',block:'nearest'});
   animateLetterTrace(letter);
-
-  // otomatis membaca huruf
-  setTimeout(function(){
-  speakLetter();
-},300);
 }
 function animateLetterTrace(letter) {
   var bg = document.getElementById('trace-bg'), fg = document.getElementById('trace-fg');
@@ -764,42 +737,24 @@ function buildNumberGrid() {
 }
 function showNumberDetail(num) {
   currentNumber=num;
-
-  document.querySelectorAll('.number-card').forEach(function(c){
-    c.classList.remove('selected');
-  });
-
-  var nc=document.getElementById('nc-'+num);
-  if(nc) nc.classList.add('selected');
-
+  document.querySelectorAll('.number-card').forEach(function(c){c.classList.remove('selected');});
+  var nc=document.getElementById('nc-'+num); if(nc)nc.classList.add('selected');
   document.getElementById('detail-num').textContent=num;
   document.getElementById('detail-num-word').textContent=NUMBER_WORDS[num];
   document.getElementById('detail-num-title').textContent='Angka '+num+' — '+NUMBER_WORDS[num];
   document.getElementById('detail-num-desc').textContent=NUMBER_DESCS[num];
-
-  var cont=document.getElementById('dots-container');
-  cont.innerHTML='';
-
-  if(num===0){
-    cont.innerHTML='<span style="color:#ccc;font-size:0.9rem;font-weight:700;">Kosong — tidak ada benda!</span>';
-  }
+  var cont=document.getElementById('dots-container'); cont.innerHTML='';
+  if(num===0){ cont.innerHTML='<span style="color:#ccc;font-size:0.9rem;font-weight:700;">Kosong — tidak ada benda!</span>'; }
   else{
     var emojis=Array.from(NUMBER_EMOJIS[num]||'').slice(0,num);
-
     emojis.forEach(function(em,idx){
-      var span=document.createElement('span');
-      span.className='dot-item';
-      span.textContent=em;
-      span.style.animationDelay=(idx*55)+'ms';
-
-      cont.appendChild(span);
+      var span=document.createElement('span'); span.className='dot-item'; span.textContent=em;
+      span.style.animationDelay=(idx*55)+'ms'; cont.appendChild(span);
     });
   }
-
-  // 🔊 suara otomatis
-  setTimeout(function(){
-    speakNumber();
-  },300);
+  document.getElementById('number-detail').classList.add('show');
+  document.getElementById('number-detail').scrollIntoView({behavior:'smooth',block:'nearest'});
+  setTimeout(function(){ speak(NUMBER_WORDS[num],0.95); },300);
 }
 
 // BERHITUNG
