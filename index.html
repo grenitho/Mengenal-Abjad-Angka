@@ -620,10 +620,20 @@ function showAngkaTab(btn, id) {
 
 // SPEECH
 function speak(text, rate) {
-  if(!synth) return; synth.cancel();
-  var utt = new SpeechSynthesisUtterance(text);
-  utt.lang = 'id-ID'; utt.rate = rate||1.0; utt.pitch = 1.1;
-  synth.speak(utt);
+
+  // menghentikan suara sebelumnya agar tidak menumpuk
+  if (speechSynthesis.speaking) {
+    speechSynthesis.cancel();
+  }
+
+  var utter = new SpeechSynthesisUtterance(text);
+
+  utter.lang = 'id-ID';
+  utter.rate = rate || 0.9;
+  utter.pitch = 1.1;
+  utter.volume = 1;
+
+  speechSynthesis.speak(utter);
 }
 function speakLetter() {
   var btn = document.getElementById('main-speak-btn'); btn.classList.add('speaking');
@@ -667,6 +677,11 @@ function showLetterDetail(letter) {
   document.getElementById('letter-detail').classList.add('show');
   document.getElementById('letter-detail').scrollIntoView({behavior:'smooth',block:'nearest'});
   animateLetterTrace(letter);
+
+  // otomatis membaca huruf
+  setTimeout(function(){
+  speakLetter();
+},300);
 }
 function animateLetterTrace(letter) {
   var bg = document.getElementById('trace-bg'), fg = document.getElementById('trace-fg');
@@ -751,6 +766,9 @@ function showNumberDetail(num) {
       var span=document.createElement('span'); span.className='dot-item'; span.textContent=em;
       span.style.animationDelay=(idx*55)+'ms'; cont.appendChild(span);
     });
+    setTimeout(function(){
+      speakNumber();
+    },300);
   }
   document.getElementById('number-detail').classList.add('show');
   document.getElementById('number-detail').scrollIntoView({behavior:'smooth',block:'nearest'});
