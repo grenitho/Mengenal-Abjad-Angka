@@ -752,24 +752,43 @@ function buildNumberGrid() {
 }
 function showNumberDetail(num) {
   currentNumber=num;
-  document.querySelectorAll('.number-card').forEach(function(c){c.classList.remove('selected');});
-  var nc=document.getElementById('nc-'+num); if(nc)nc.classList.add('selected');
+
+  document.querySelectorAll('.number-card').forEach(function(c){
+    c.classList.remove('selected');
+  });
+
+  var nc=document.getElementById('nc-'+num);
+  if(nc) nc.classList.add('selected');
+
   document.getElementById('detail-num').textContent=num;
   document.getElementById('detail-num-word').textContent=NUMBER_WORDS[num];
   document.getElementById('detail-num-title').textContent='Angka '+num+' — '+NUMBER_WORDS[num];
   document.getElementById('detail-num-desc').textContent=NUMBER_DESCS[num];
-  var cont=document.getElementById('dots-container'); cont.innerHTML='';
-  if(num===0){ cont.innerHTML='<span style="color:#ccc;font-size:0.9rem;font-weight:700;">Kosong — tidak ada benda!</span>'; }
+
+  var cont=document.getElementById('dots-container');
+  cont.innerHTML='';
+
+  if(num===0){
+    cont.innerHTML='<span style="color:#ccc;font-size:0.9rem;font-weight:700;">Kosong — tidak ada benda!</span>';
+  }
   else{
     var emojis=Array.from(NUMBER_EMOJIS[num]||'').slice(0,num);
+
     emojis.forEach(function(em,idx){
-      var span=document.createElement('span'); span.className='dot-item'; span.textContent=em;
-      span.style.animationDelay=(idx*55)+'ms'; cont.appendChild(span);
+      var span=document.createElement('span');
+      span.className='dot-item';
+      span.textContent=em;
+      span.style.animationDelay=(idx*55)+'ms';
+
+      cont.appendChild(span);
     });
-    setTimeout(function(){
-      speakNumber();
-    },300);
   }
+
+  // 🔊 suara otomatis
+  setTimeout(function(){
+    speakNumber();
+  },300);
+}
   document.getElementById('number-detail').classList.add('show');
   document.getElementById('number-detail').scrollIntoView({behavior:'smooth',block:'nearest'});
   setTimeout(function(){ speak(NUMBER_WORDS[num],0.95); },300);
