@@ -628,7 +628,7 @@ function speak(text, rate) {
 function speakLetter() {
   var btn = document.getElementById('main-speak-btn'); btn.classList.add('speaking');
   var data = LETTER_DATA[currentLetter];
-  speak('Huruf '+currentLetter+'. '+currentLetter.toLowerCase()+'. Contoh kata: '+data.words.map(function(w){return w.w;}).join(', '), 0.95);
+  speak('Huruf '+currentLetter+'. Contoh kata: '+data.words.map(function(w){return w.w;}).join(', '), 0.95);
   setTimeout(function(){btn.classList.remove('speaking');}, 2500);
 }
 function speakNumber() {
@@ -667,7 +667,6 @@ function showLetterDetail(letter) {
   document.getElementById('letter-detail').classList.add('show');
   document.getElementById('letter-detail').scrollIntoView({behavior:'smooth',block:'nearest'});
   animateLetterTrace(letter);
-  setTimeout(function(){ speak(letter, 0.95); }, 300);
 }
 function animateLetterTrace(letter) {
   var bg = document.getElementById('trace-bg'), fg = document.getElementById('trace-fg');
