@@ -24,6 +24,54 @@
     .shape:nth-child(5){ width:100px;height:100px;background:var(--purple);top:50%;left:45%;animation-delay:4s;}
     @keyframes floatShape { 0%,100%{ transform:translateY(0) scale(1); } 50%{ transform:translateY(-24px) scale(1.05); } }
 
+    /* TOAST */
+    #toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:#333; color:#fff; padding:10px 22px; border-radius:50px; font-weight:700; font-size:0.9rem; z-index:9999; transition:transform 0.3s; pointer-events:none; }
+    #toast.show { transform:translateX(-50%) translateY(0); }
+
+    /* ===== HALAMAN SAMBUTAN ===== */
+    #page-welcome {
+      position: fixed; inset: 0; z-index: 100;
+      background: linear-gradient(160deg, #FFD93D 0%, #FF6B6B 40%, #C77DFF 85%, #5BC4F5 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 24px; text-align: center;
+      animation: fadeIn .5s ease;
+    }
+    .welcome-clouds { position: absolute; top: 0; left: 0; right: 0; pointer-events: none; }
+    .welcome-star-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .wstar { position: absolute; font-size: 1.5rem; animation: wstarFloat 6s ease-in-out infinite; opacity: 0.35; }
+    @keyframes wstarFloat { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-18px) rotate(20deg);} }
+    .welcome-card {
+      background: rgba(255,255,255,0.22); backdrop-filter: blur(8px);
+      border: 3px solid rgba(255,255,255,0.45); border-radius: 36px;
+      padding: 36px 32px 32px; max-width: 480px; width: 100%;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.18); position: relative; z-index: 2;
+    }
+    .welcome-mascot { font-size: 5.5rem; display: block; animation: iconBob 2s ease-in-out infinite; margin-bottom: 10px; }
+    @keyframes iconBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .welcome-title { font-family: 'Baloo 2', cursive; font-size: clamp(1.4rem,5vw,2rem); font-weight: 800; color: #fff; text-shadow: 2px 3px 0 rgba(0,0,0,0.15); line-height: 1.35; margin-bottom: 6px; }
+    .welcome-sub { font-size: 1rem; font-weight: 700; color: rgba(255,255,255,0.9); margin-bottom: 20px; }
+    .welcome-speak-btn {
+      background: rgba(255,255,255,0.3); border: 2.5px solid rgba(255,255,255,0.7);
+      color: #fff; font-family: 'Baloo 2', cursive; font-size: 1rem; font-weight: 800;
+      padding: 10px 24px; border-radius: 50px; cursor: pointer; transition: all .2s;
+      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 28px;
+    }
+    .welcome-speak-btn:hover { background: rgba(255,255,255,0.45); transform: scale(1.05); }
+    .welcome-speak-btn.speaking { animation: pulseWhite .6s ease infinite alternate; }
+    @keyframes pulseWhite { to { box-shadow: 0 0 22px rgba(255,255,255,0.8); transform: scale(1.07); } }
+    .welcome-divider { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.75); margin-bottom: 16px; }
+    .user-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .user-btn {
+      font-family: 'Baloo 2', cursive; font-size: 1.4rem; font-weight: 800;
+      padding: 16px 36px; border-radius: 50px; border: 4px solid rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.25); color: #fff; cursor: pointer; transition: all .3s;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15); text-shadow: 1px 2px 0 rgba(0,0,0,0.12);
+    }
+    .user-btn:hover { background: rgba(255,255,255,0.45); transform: translateY(-6px) scale(1.06); box-shadow: 0 14px 32px rgba(0,0,0,0.2); }
+    .user-btn:active { transform: scale(0.96); }
+    .user-btn.neiva { background: linear-gradient(135deg, rgba(255,180,50,0.55), rgba(255,107,107,0.55)); }
+    .user-btn.neira { background: linear-gradient(135deg, rgba(91,196,245,0.55), rgba(199,125,255,0.55)); }
+
     /* HEADER */
     header { position: relative; z-index: 10; padding: 18px 24px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.12); transition: background 0.5s; }
     header.mode-home  { background: linear-gradient(135deg, #FFD93D 0%, #FF6B6B 40%, #C77DFF 100%); }
@@ -33,15 +81,13 @@
     header p { color: rgba(255,255,255,0.92); font-size: 0.95rem; font-weight: 600; margin-top: 2px; }
     .star { display: inline-block; animation: spin 3s linear infinite; }
     @keyframes spin { to{ transform: rotate(360deg); } }
-    .back-btn {
-      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
-      background: rgba(255,255,255,0.25); border: 2px solid rgba(255,255,255,0.5);
-      color: #fff; font-family: 'Baloo 2', cursive; font-weight: 800;
-      font-size: 0.95rem; padding: 7px 16px; border-radius: 50px;
-      cursor: pointer; transition: all .2s; display: none;
-    }
+    .back-btn { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.25); border: 2px solid rgba(255,255,255,0.5); color: #fff; font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 0.95rem; padding: 7px 16px; border-radius: 50px; cursor: pointer; transition: all .2s; display: none; }
     .back-btn:hover { background: rgba(255,255,255,0.4); transform: translateY(-50%) scale(1.05); }
     .back-btn.show { display: block; }
+    .header-user-badge { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.25); border: 2px solid rgba(255,255,255,0.5); color: #fff; font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 0.85rem; padding: 6px 14px; border-radius: 50px; display: none; cursor: pointer; transition: all .2s; }
+    .header-user-badge:hover { background: rgba(255,255,255,0.42); transform: translateY(-50%) scale(1.05); }
+    .header-user-badge:active { transform: translateY(-50%) scale(0.97); }
+    .header-user-badge.show { display: block; }
 
     /* NAV */
     .nav-tabs { position: relative; z-index: 10; display: flex; justify-content: center; gap: 10px; padding: 16px 16px 0; flex-wrap: wrap; }
@@ -68,7 +114,7 @@
     .section-title .hl { color: var(--coral); }
     .section-title .hl-blue { color: var(--sky); }
 
-    /* ===== HOME PAGE ===== */
+    /* HOME */
     .home-hero { text-align: center; padding: 20px 10px 10px; }
     .home-hero h2 { font-family: 'Baloo 2', cursive; font-size: clamp(1.6rem,5vw,2.6rem); font-weight: 800; margin-bottom: 8px; }
     .home-hero p { color: #888; font-size: 1rem; font-weight: 600; margin-bottom: 32px; }
@@ -80,16 +126,13 @@
     .mode-card:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 18px 44px rgba(0,0,0,0.2); }
     .mode-card-icon { font-size: 5rem; display:block; margin-bottom:12px; animation: iconBob 2s ease-in-out infinite; }
     .mode-card.angka .mode-card-icon { animation-delay: .5s; }
-    @keyframes iconBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
     .mode-card h3 { font-family: 'Baloo 2', cursive; font-size: 1.8rem; font-weight: 800; color: #fff; text-shadow: 2px 2px 0 rgba(0,0,0,0.12); margin-bottom: 6px; }
     .mode-card p { color: rgba(255,255,255,0.88); font-size: 0.9rem; font-weight: 600; line-height: 1.5; }
     .mode-card-badge { display: inline-block; margin-top: 14px; background: rgba(255,255,255,0.25); color:#fff; border-radius:50px; padding:6px 18px; font-family:'Baloo 2',cursive; font-size:0.85rem; font-weight:800; }
 
-    /* ===== HURUF ===== */
+    /* HURUF */
     .alphabet-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(80px,1fr)); gap: 12px; }
     .letter-card { background:#fff; border-radius:18px; padding:14px 8px; text-align:center; cursor:pointer; transition:all .25s; box-shadow:0 3px 12px var(--shadow); border:3px solid transparent; position:relative; overflow:hidden; }
-    .letter-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0) 50%,rgba(255,255,255,0.5) 100%); opacity:0; transition:opacity .3s; }
-    .letter-card:hover::before { opacity:1; }
     .letter-card:hover { transform:translateY(-6px) scale(1.05); box-shadow:0 10px 28px rgba(0,0,0,0.15); }
     .letter-card.selected { border-color:var(--coral); box-shadow:0 8px 24px rgba(255,107,107,0.35); transform:scale(1.07); }
     .letter-card:nth-child(5n+1){ border-top:5px solid var(--coral); }
@@ -112,18 +155,15 @@
     .word-examples { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
     .word-chip { background:var(--bg); border-radius:50px; padding:8px 18px; font-weight:700; font-size:1rem; cursor:pointer; border:2px solid transparent; transition:all .2s; display:flex; align-items:center; gap:6px; }
     .word-chip:hover { background:var(--sun); border-color:var(--peach); transform:scale(1.04); }
-    .svg-trace-area { margin-top:16px; background:#f9f9f9; border-radius:16px; padding:16px; text-align:center; }
+    .svg-trace-area { margin-top:16px; background:#f4f4f4; border-radius:16px; padding:16px; text-align:center; }
     .svg-trace-area h4 { font-weight:700; font-size:0.9rem; color:#888; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px; }
     #trace-svg { display:block; margin:0 auto; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.08)); }
-    .trace-path { fill:none; stroke:#eee; stroke-width:18; stroke-linecap:round; stroke-linejoin:round; }
-    .trace-anim { fill:none; stroke:var(--coral); stroke-width:14; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:1000; stroke-dashoffset:1000; }
     .sound-btn { margin-top:12px; font-family:'Baloo 2',cursive; font-size:1.1rem; font-weight:700; padding:12px 28px; background:var(--sky); color:#fff; border:none; border-radius:50px; cursor:pointer; transition:all .2s; box-shadow:0 4px 14px rgba(91,196,245,0.4); display:inline-flex; align-items:center; gap:8px; }
     .sound-btn:hover { transform:scale(1.06); background:#3ab8f0; }
-    .sound-btn.speaking { animation:pulse 0.6s ease infinite alternate; }
+    .sound-btn.speaking { animation:pulse 0.6s ease infinite alternate; background:#3ab8f0; }
     @keyframes pulse { to{ box-shadow:0 4px 22px rgba(91,196,245,0.7); transform:scale(1.08); } }
     .kata-intro { background:linear-gradient(135deg,#6BCB77,#5BC4F5); border-radius:20px; padding:20px 24px; color:#fff; margin-bottom:20px; box-shadow:0 6px 20px rgba(107,203,119,0.3); }
     .kata-intro h3 { font-family:'Baloo 2',cursive; font-size:1.3rem; font-weight:800; margin-bottom:4px; }
-    .kata-intro p { font-weight:600; opacity:.9; font-size:0.95rem; }
     .kata-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px; }
     .kata-card { background:#fff; border-radius:20px; padding:18px 14px; text-align:center; cursor:pointer; box-shadow:0 3px 14px var(--shadow); transition:all .25s; border-bottom:5px solid var(--sky); }
     .kata-card:hover { transform:translateY(-5px); box-shadow:0 10px 26px rgba(0,0,0,0.14); }
@@ -132,19 +172,20 @@
     .kata-word { font-family:'Baloo 2',cursive; font-size:1.3rem; font-weight:800; }
     .kata-suku { font-size:0.8rem; font-weight:700; color:#aaa; margin-top:4px; }
     .kata-speak-btn { margin-top:8px; background:none; border:2px solid #eee; border-radius:50px; padding:5px 14px; font-size:0.8rem; font-weight:700; color:#aaa; cursor:pointer; transition:all .2s; }
-    .kata-speak-btn:hover { background:var(--sun); border-color:var(--peach); color:#fff; }
+    .kata-speak-btn:hover { background:var(--sun); border-color:var(--peach); color:#333; }
     .tulis-container { background:#fff; border-radius:24px; padding:24px; box-shadow:0 6px 26px var(--shadow); }
     .tulis-letter-select { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; justify-content:center; }
     .tulis-letter-btn { width:44px; height:44px; font-family:'Baloo 2',cursive; font-size:1.2rem; font-weight:800; background:#f5f5f5; border:2px solid #eee; border-radius:10px; cursor:pointer; transition:all .2s; }
     .tulis-letter-btn:hover,.tulis-letter-btn.active { background:var(--coral); color:#fff; border-color:var(--coral); transform:scale(1.1); }
     .canvas-wrapper { display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start; }
-    .guide-letter-box { width:180px;height:180px;flex-shrink:0; background:linear-gradient(135deg,#ffe0e0,#fff3cd); border-radius:20px; display:flex; align-items:center; justify-content:center; position:relative; }
-    .guide-letter { font-family:'Baloo 2',cursive; font-size:8rem; font-weight:800; color:rgba(255,107,107,0.18); line-height:1; user-select:none; }
-    .guide-label { position:absolute; bottom:8px; font-size:0.75rem; font-weight:700; color:#ccc; text-transform:uppercase; letter-spacing:1px; }
+    /* FIX #3: Guide letter lebih jelas dan besar */
+    .guide-letter-box { width:200px; height:200px; flex-shrink:0; background:linear-gradient(135deg,#fff0d0,#ffd6d6); border-radius:20px; display:flex; align-items:center; justify-content:center; position:relative; border: 3px dashed #ffb347; }
+    .guide-letter { font-family:'Baloo 2',cursive; font-size:9rem; font-weight:800; color:rgba(220,80,60,0.30); line-height:1; user-select:none; }
+    .guide-label { position:absolute; bottom:8px; font-size:0.75rem; font-weight:700; color:#e08060; text-transform:uppercase; letter-spacing:1px; }
     .draw-section { flex:1; min-width:260px; }
     .draw-section h4 { font-weight:800; margin-bottom:10px; color:#555; font-size:0.95rem; }
     #draw-canvas { display:block; border:3px dashed #e0e0e0; border-radius:16px; background:#fafafa; cursor:crosshair; touch-action:none; }
-    .canvas-controls { display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
+    .canvas-controls { display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; align-items:center; }
     .ctrl-btn { font-family:'Baloo 2',cursive; font-size:0.9rem; font-weight:700; padding:9px 20px; border:none; border-radius:50px; cursor:pointer; transition:all .2s; }
     .ctrl-clear { background:#ffe0e0; color:var(--coral); } .ctrl-clear:hover { background:var(--coral); color:#fff; }
     .ctrl-color-group { display:flex; gap:6px; align-items:center; }
@@ -153,7 +194,7 @@
     .size-slider { width:80px; cursor:pointer; }
     .stroke-badge { background:var(--sun); color:#665500; border-radius:50px; padding:4px 12px; font-size:0.8rem; font-weight:800; display:inline-block; margin-left:8px; }
 
-    /* ===== ANGKA ===== */
+    /* ANGKA */
     .number-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(90px,1fr)); gap:14px; }
     .number-card { background:#fff; border-radius:20px; padding:14px 8px 10px; text-align:center; cursor:pointer; transition:all .25s; box-shadow:0 3px 12px var(--shadow); border:3px solid transparent; }
     .number-card:hover { transform:translateY(-6px) scale(1.05); box-shadow:0 10px 28px rgba(0,0,0,0.15); }
@@ -209,7 +250,7 @@
     .hitung-opt:hover { background:#fff7e0; border-color:var(--sun); transform:scale(1.05); }
     .hitung-opt.correct { background:#e0ffe6; border-color:var(--mint); color:#1a7a2e; animation:correctAnim .4s ease; }
     .hitung-opt.wrong { background:#ffe0e0; border-color:var(--coral); color:#c00; animation:shakeAnim .4s ease; }
-    .hitung-opt.disabled { pointer-events:none; }
+    .hitung-opt.disabled { pointer-events:none; opacity:0.7; }
     .hitung-feedback { margin-top:14px; padding:12px 18px; border-radius:14px; font-weight:700; font-size:0.95rem; display:none; align-items:center; gap:8px; justify-content:center; }
     .hitung-feedback.show { display:flex; }
     .hitung-feedback.ok { background:#e0ffe6; color:#1a7a2e; }
@@ -217,11 +258,10 @@
     .hitung-next-btn { margin-top:14px; font-family:'Baloo 2',cursive; font-size:1rem; font-weight:800; padding:12px 28px; border:none; border-radius:50px; cursor:pointer; background:linear-gradient(135deg,var(--teal),var(--sky)); color:#fff; box-shadow:0 4px 16px rgba(32,201,165,.4); transition:all .2s; display:none; }
     .hitung-next-btn.show { display:inline-block; animation:fadeIn .3s ease; }
     .hitung-next-btn:hover { transform:scale(1.04); }
-
     @keyframes correctAnim { 0%{transform:scale(1)} 50%{transform:scale(1.08)} 100%{transform:scale(1)} }
     @keyframes shakeAnim { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
 
-    /* KUIS (shared) */
+    /* KUIS */
     .kuis-header { border-radius:20px; padding:20px 24px; color:#fff; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
     .kuis-header.red  { background:linear-gradient(135deg,#C77DFF,#FF6B6B); box-shadow:0 6px 20px rgba(199,125,255,.3); }
     .kuis-header.blue { background:linear-gradient(135deg,#5BC4F5,#20C9A5); box-shadow:0 6px 20px rgba(91,196,245,.3); }
@@ -237,7 +277,7 @@
     .kuis-opt:hover { background:#fff7e0; border-color:var(--sun); transform:scale(1.03); }
     .kuis-opt.correct { background:#e0ffe6; border-color:var(--mint); color:#1a7a2e; animation:correctAnim .4s ease; }
     .kuis-opt.wrong { background:#ffe0e0; border-color:var(--coral); color:#c00; animation:shakeAnim .4s ease; }
-    .kuis-opt.disabled { pointer-events:none; }
+    .kuis-opt.disabled { pointer-events:none; opacity:0.75; }
     .kuis-feedback { margin-top:16px; padding:14px 20px; border-radius:14px; font-weight:700; font-size:1rem; display:none; align-items:center; gap:10px; }
     .kuis-feedback.show { display:flex; }
     .kuis-feedback.ok { background:#e0ffe6; color:#1a7a2e; }
@@ -277,25 +317,47 @@
   </style>
 </head>
 <body>
+
 <div class="bg-shapes">
   <div class="shape"></div><div class="shape"></div>
   <div class="shape"></div><div class="shape"></div><div class="shape"></div>
 </div>
 
-<header id="app-header" class="mode-home">
+<div id="toast">🔊 Sedang memutar suara...</div>
+
+<!-- ===== HALAMAN SAMBUTAN ===== -->
+<div id="page-welcome">
+  <div class="welcome-star-bg" id="wstar-bg"></div>
+  <div class="welcome-card">
+    <span class="welcome-mascot">🦄</span>
+    <div class="welcome-title">Halo, ayo kita belajar<br>supaya jadi anak pintar!</div>
+    <div class="welcome-sub">Siapa yang mau belajar hari ini?</div>
+    <button class="welcome-speak-btn" id="welcome-speak-btn" onclick="speakWelcome()">
+      🔊 Dengar Sapaan
+    </button>
+    <div class="welcome-divider">Pilih namamu 👇</div>
+    <div class="user-btns">
+      <button class="user-btn neiva" onclick="selectUser('Neiva')">🌟 Neiva</button>
+      <button class="user-btn neira" onclick="selectUser('Neira')">✨ Neira</button>
+    </div>
+  </div>
+</div>
+
+<header id="app-header" class="mode-home" style="display:none">
   <button class="back-btn" id="back-btn" onclick="goHome()">&#8592; Beranda</button>
   <h1 id="header-title">🌟 Belajar Yuk! <span class="star">✨</span></h1>
   <p id="header-sub">Pilih materi yang ingin dipelajari</p>
+  <button class="header-user-badge" id="header-user-badge" onclick="goWelcome()" title="Ganti pengguna">👤 <span id="header-user-name"></span> 🔄</button>
 </header>
 
 <div class="nav-tabs" id="nav-tabs" style="display:none"></div>
 
-<main>
+<main id="main-area" style="display:none">
 
   <!-- HOME -->
   <div id="page-home" class="page active">
     <div class="home-hero">
-      <h2>Mau belajar apa hari ini? 🎒</h2>
+      <h2 id="home-greeting">Mau belajar apa hari ini? 🎒</h2>
       <p>Pilih salah satu materi di bawah ini!</p>
     </div>
     <div class="mode-cards">
@@ -335,11 +397,11 @@
         <div class="svg-trace-area">
           <h4>✍️ Animasi Penulisan Huruf</h4>
           <svg id="trace-svg" width="200" height="200" viewBox="0 0 200 200">
-            <rect width="200" height="200" rx="20" fill="#f5f5f5"/>
-            <line x1="20" y1="100" x2="180" y2="100" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="6,6"/>
-            <line x1="100" y1="20" x2="100" y2="180" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="6,6"/>
-            <path id="trace-bg" class="trace-path" d=""/>
-            <path id="trace-fg" class="trace-anim" d=""/>
+            <rect width="200" height="200" rx="20" fill="#f0f0f0"/>
+            <line x1="20" y1="100" x2="180" y2="100" stroke="#ddd" stroke-width="1.5" stroke-dasharray="6,6"/>
+            <line x1="100" y1="20" x2="100" y2="180" stroke="#ddd" stroke-width="1.5" stroke-dasharray="6,6"/>
+            <path id="trace-bg" fill="none" stroke="#ddd" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" d=""/>
+            <path id="trace-fg" fill="none" stroke="#FF6B6B" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" d=""/>
           </svg>
         </div>
       </div>
@@ -360,11 +422,11 @@
           </div>
           <div class="draw-section">
             <h4>Tuliskan di sini! <span class="stroke-badge" id="stroke-badge">0 goresan</span></h4>
-            <canvas id="draw-canvas" width="300" height="180"></canvas>
+            <canvas id="draw-canvas" width="300" height="200"></canvas>
             <div class="canvas-controls">
               <button class="ctrl-btn ctrl-clear" onclick="clearCanvas()">🗑️ Hapus</button>
               <div class="ctrl-color-group" id="color-group"></div>
-              <input type="range" class="size-slider" id="brush-size" min="4" max="24" value="10">
+              <input type="range" class="size-slider" id="brush-size" min="4" max="28" value="12">
             </div>
           </div>
         </div>
@@ -382,7 +444,8 @@
           <button class="kuis-next-btn red-grad" id="kuis-huruf-next-btn" onclick="nextHurufQuestion()">➡️ Soal Berikutnya</button>
         </div>
         <div class="kuis-result red" id="kuis-huruf-result">
-          <div class="trophy" id="huruf-result-trophy">🏆</div><h2>Luar Biasa!</h2>
+          <div class="trophy" id="huruf-result-trophy">🏆</div>
+          <h2 id="huruf-result-title">Luar Biasa!</h2>
           <p style="color:#888;font-weight:600">Nilaimu:</p>
           <div class="score-final" id="huruf-score-final">0/10</div>
           <p id="huruf-result-msg" style="color:#666;font-weight:700;font-size:1.1rem;"></p>
@@ -442,7 +505,8 @@
           <button class="kuis-next-btn blue-grad" id="kuis-angka-next-btn" onclick="nextAngkaQuestion()">➡️ Soal Berikutnya</button>
         </div>
         <div class="kuis-result blue" id="kuis-angka-result">
-          <div class="trophy" id="angka-result-trophy">🏆</div><h2>Keren Sekali!</h2>
+          <div class="trophy" id="angka-result-trophy">🏆</div>
+          <h2 id="angka-result-title">Keren Sekali!</h2>
           <p style="color:#888;font-weight:600">Nilaimu:</p>
           <div class="score-final" id="angka-score-final">0/10</div>
           <p id="angka-result-msg" style="color:#666;font-weight:700;font-size:1.1rem;"></p>
@@ -453,47 +517,65 @@
   </div>
 
 </main>
+
 <script>
-// DATA HURUF
+// ===================== DATA =====================
 var LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 var LETTER_DATA = {
-  A:{desc:'Huruf A adalah huruf pertama dalam abjad. Diucapkan "A" seperti dalam kata "Apel".',words:[{w:'Apel',e:'🍎'},{w:'Ayam',e:'🐔'},{w:'Api',e:'🔥'}]},
-  B:{desc:'Huruf B diucapkan "Be". Seperti bunyi dalam kata "Buku" atau "Bola".',words:[{w:'Buku',e:'📚'},{w:'Bola',e:'⚽'},{w:'Bunga',e:'🌸'}]},
-  C:{desc:'Huruf C diucapkan "Ce". Seperti bunyi dalam kata "Cicak" atau "Cokelat".',words:[{w:'Cicak',e:'🦎'},{w:'Cincin',e:'💍'},{w:'Cabe',e:'🌶️'}]},
-  D:{desc:'Huruf D diucapkan "De". Seperti bunyi dalam kata "Domba" atau "Duku".',words:[{w:'Domba',e:'🐑'},{w:'Duku',e:'🍇'},{w:'Dadu',e:'🎲'}]},
-  E:{desc:'Huruf E diucapkan "E". Seperti bunyi dalam kata "Elang" atau "Es".',words:[{w:'Elang',e:'🦅'},{w:'Es',e:'🧊'},{w:'Ember',e:'🪣'}]},
-  F:{desc:'Huruf F diucapkan "Ef". Seperti bunyi dalam kata "Foto" atau "Film".',words:[{w:'Foto',e:'📷'},{w:'Film',e:'🎬'},{w:'Fajar',e:'🌅'}]},
-  G:{desc:'Huruf G diucapkan "Ge". Seperti bunyi dalam kata "Gajah" atau "Gitar".',words:[{w:'Gajah',e:'🐘'},{w:'Gitar',e:'🎸'},{w:'Guling',e:'🛏️'}]},
-  H:{desc:'Huruf H diucapkan "Ha". Seperti bunyi dalam kata "Harimau" atau "Hujan".',words:[{w:'Harimau',e:'🐯'},{w:'Hujan',e:'🌧️'},{w:'Hari',e:'☀️'}]},
-  I:{desc:'Huruf I diucapkan "I". Seperti bunyi dalam kata "Ikan" atau "Ibu".',words:[{w:'Ikan',e:'🐟'},{w:'Ibu',e:'👩'},{w:'Indah',e:'🌈'}]},
-  J:{desc:'Huruf J diucapkan "Je". Seperti bunyi dalam kata "Jerapah" atau "Jagung".',words:[{w:'Jerapah',e:'🦒'},{w:'Jagung',e:'🌽'},{w:'Jalan',e:'🛣️'}]},
-  K:{desc:'Huruf K diucapkan "Ka". Seperti bunyi dalam kata "Kucing" atau "Kapal".',words:[{w:'Kucing',e:'🐱'},{w:'Kapal',e:'🚢'},{w:'Kuda',e:'🐴'}]},
-  L:{desc:'Huruf L diucapkan "El". Seperti bunyi dalam kata "Lalat" atau "Laut".',words:[{w:'Lalat',e:'🪰'},{w:'Laut',e:'🌊'},{w:'Lampu',e:'💡'}]},
-  M:{desc:'Huruf M diucapkan "Em". Seperti bunyi dalam kata "Matahari" atau "Mobil".',words:[{w:'Matahari',e:'☀️'},{w:'Mobil',e:'🚗'},{w:'Melon',e:'🍈'}]},
-  N:{desc:'Huruf N diucapkan "En". Seperti bunyi dalam kata "Nasi" atau "Nyamuk".',words:[{w:'Nasi',e:'🍚'},{w:'Nyamuk',e:'🦟'},{w:'Nanas',e:'🍍'}]},
-  O:{desc:'Huruf O diucapkan "O". Seperti bunyi dalam kata "Orang" atau "Obat".',words:[{w:'Orang',e:'👤'},{w:'Obat',e:'💊'},{w:'Ombak',e:'🌊'}]},
-  P:{desc:'Huruf P diucapkan "Pe". Seperti bunyi dalam kata "Pensil" atau "Panda".',words:[{w:'Pensil',e:'✏️'},{w:'Panda',e:'🐼'},{w:'Pisang',e:'🍌'}]},
-  Q:{desc:'Huruf Q diucapkan "Ki". Dipakai dalam kata serapan seperti "Quran".',words:[{w:'Quiz',e:'❓'},{w:'Quran',e:'📖'},{w:'Qatar',e:'🌍'}]},
-  R:{desc:'Huruf R diucapkan "Er". Seperti bunyi dalam kata "Rusa" atau "Rumah".',words:[{w:'Rusa',e:'🦌'},{w:'Rumah',e:'🏠'},{w:'Roti',e:'🍞'}]},
-  S:{desc:'Huruf S diucapkan "Es". Seperti bunyi dalam kata "Singa" atau "Susu".',words:[{w:'Singa',e:'🦁'},{w:'Susu',e:'🥛'},{w:'Semut',e:'🐜'}]},
-  T:{desc:'Huruf T diucapkan "Te". Seperti bunyi dalam kata "Tikus" atau "Telur".',words:[{w:'Tikus',e:'🐭'},{w:'Telur',e:'🥚'},{w:'Topi',e:'🎩'}]},
-  U:{desc:'Huruf U diucapkan "U". Seperti bunyi dalam kata "Ulat" atau "Ular".',words:[{w:'Ulat',e:'🐛'},{w:'Ular',e:'🐍'},{w:'Ubur-ubur',e:'🪼'}]},
-  V:{desc:'Huruf V diucapkan "Fe". Dipakai dalam kata serapan seperti "Vitamin".',words:[{w:'Vitamin',e:'💊'},{w:'Vaksin',e:'💉'},{w:'Vokal',e:'🎤'}]},
-  W:{desc:'Huruf W diucapkan "We". Seperti bunyi dalam kata "Wortel" atau "Wayang".',words:[{w:'Wortel',e:'🥕'},{w:'Wayang',e:'🎭'},{w:'Warna',e:'🎨'}]},
-  X:{desc:'Huruf X diucapkan "Ex". Dipakai dalam kata serapan seperti "X-ray".',words:[{w:'X-ray',e:'🩻'},{w:'Xilofon',e:'🎵'},{w:'Xenon',e:'⚡'}]},
-  Y:{desc:'Huruf Y diucapkan "Ye". Seperti bunyi dalam kata "Yogurt" atau "Yoyo".',words:[{w:'Yogurt',e:'🥛'},{w:'Yoyo',e:'🪀'},{w:'Yakin',e:'✅'}]},
-  Z:{desc:'Huruf Z diucapkan "Zet". Seperti bunyi dalam kata "Zebra" atau "Zakat".',words:[{w:'Zebra',e:'🦓'},{w:'Zakat',e:'🕌'},{w:'Zombie',e:'🧟'}]}
+  A:{desc:'Huruf A adalah huruf pertama dalam abjad.',words:[{w:'Apel',e:'🍎'},{w:'Ayam',e:'🐔'},{w:'Api',e:'🔥'}]},
+  B:{desc:'Huruf B diucapkan Be.',words:[{w:'Buku',e:'📚'},{w:'Bola',e:'⚽'},{w:'Bunga',e:'🌸'}]},
+  C:{desc:'Huruf C diucapkan Ce.',words:[{w:'Cicak',e:'🦎'},{w:'Cincin',e:'💍'},{w:'Cabe',e:'🌶️'}]},
+  D:{desc:'Huruf D diucapkan De.',words:[{w:'Domba',e:'🐑'},{w:'Duku',e:'🍇'},{w:'Dadu',e:'🎲'}]},
+  E:{desc:'Huruf E diucapkan E.',words:[{w:'Elang',e:'🦅'},{w:'Es',e:'🧊'},{w:'Ember',e:'🪣'}]},
+  F:{desc:'Huruf F diucapkan Ef.',words:[{w:'Foto',e:'📷'},{w:'Film',e:'🎬'},{w:'Fajar',e:'🌅'}]},
+  G:{desc:'Huruf G diucapkan Ge.',words:[{w:'Gajah',e:'🐘'},{w:'Gitar',e:'🎸'},{w:'Guling',e:'🛏️'}]},
+  H:{desc:'Huruf H diucapkan Ha.',words:[{w:'Harimau',e:'🐯'},{w:'Hujan',e:'🌧️'},{w:'Hari',e:'☀️'}]},
+  I:{desc:'Huruf I diucapkan I.',words:[{w:'Ikan',e:'🐟'},{w:'Ibu',e:'👩'},{w:'Indah',e:'🌈'}]},
+  J:{desc:'Huruf J diucapkan Je.',words:[{w:'Jerapah',e:'🦒'},{w:'Jagung',e:'🌽'},{w:'Jalan',e:'🛣️'}]},
+  K:{desc:'Huruf K diucapkan Ka.',words:[{w:'Kucing',e:'🐱'},{w:'Kapal',e:'🚢'},{w:'Kuda',e:'🐴'}]},
+  L:{desc:'Huruf L diucapkan El.',words:[{w:'Lalat',e:'🪰'},{w:'Laut',e:'🌊'},{w:'Lampu',e:'💡'}]},
+  M:{desc:'Huruf M diucapkan Em.',words:[{w:'Matahari',e:'☀️'},{w:'Mobil',e:'🚗'},{w:'Melon',e:'🍈'}]},
+  N:{desc:'Huruf N diucapkan En.',words:[{w:'Nasi',e:'🍚'},{w:'Nyamuk',e:'🦟'},{w:'Nanas',e:'🍍'}]},
+  O:{desc:'Huruf O diucapkan O.',words:[{w:'Orang',e:'👤'},{w:'Obat',e:'💊'},{w:'Ombak',e:'🌊'}]},
+  P:{desc:'Huruf P diucapkan Pe.',words:[{w:'Pensil',e:'✏️'},{w:'Panda',e:'🐼'},{w:'Pisang',e:'🍌'}]},
+  Q:{desc:'Huruf Q diucapkan Ki.',words:[{w:'Quiz',e:'❓'},{w:'Quran',e:'📖'},{w:'Qatar',e:'🌍'}]},
+  R:{desc:'Huruf R diucapkan Er.',words:[{w:'Rusa',e:'🦌'},{w:'Rumah',e:'🏠'},{w:'Roti',e:'🍞'}]},
+  S:{desc:'Huruf S diucapkan Es.',words:[{w:'Singa',e:'🦁'},{w:'Susu',e:'🥛'},{w:'Semut',e:'🐜'}]},
+  T:{desc:'Huruf T diucapkan Te.',words:[{w:'Tikus',e:'🐭'},{w:'Telur',e:'🥚'},{w:'Topi',e:'🎩'}]},
+  U:{desc:'Huruf U diucapkan U.',words:[{w:'Ulat',e:'🐛'},{w:'Ular',e:'🐍'},{w:'Ubur-ubur',e:'🪼'}]},
+  V:{desc:'Huruf V diucapkan Fe.',words:[{w:'Vitamin',e:'💊'},{w:'Vaksin',e:'💉'},{w:'Vokal',e:'🎤'}]},
+  W:{desc:'Huruf W diucapkan We.',words:[{w:'Wortel',e:'🥕'},{w:'Wayang',e:'🎭'},{w:'Warna',e:'🎨'}]},
+  X:{desc:'Huruf X diucapkan Ex.',words:[{w:'X-ray',e:'🩻'},{w:'Xilofon',e:'🎵'},{w:'Xenon',e:'⚡'}]},
+  Y:{desc:'Huruf Y diucapkan Ye.',words:[{w:'Yogurt',e:'🥛'},{w:'Yoyo',e:'🪀'},{w:'Yakin',e:'✅'}]},
+  Z:{desc:'Huruf Z diucapkan Zet.',words:[{w:'Zebra',e:'🦓'},{w:'Zakat',e:'🕌'},{w:'Zombie',e:'🧟'}]}
 };
 var LETTER_PATHS = {
-  A:'M100 30 L50 170 M100 30 L150 170 M65 120 L135 120',B:'M60 30 L60 170 M60 30 Q140 30 140 75 Q140 100 60 100 M60 100 Q150 100 150 135 Q150 170 60 170',
-  C:'M160 60 Q90 20 50 100 Q90 180 160 140',D:'M60 30 L60 170 M60 30 Q170 30 170 100 Q170 170 60 170',E:'M60 30 L60 170 M60 30 L150 30 M60 100 L140 100 M60 170 L150 170',
-  F:'M60 30 L60 170 M60 30 L150 30 M60 100 L140 100',G:'M160 60 Q90 20 50 100 Q90 180 160 140 L160 100 L110 100',H:'M60 30 L60 170 M140 30 L140 170 M60 100 L140 100',
-  I:'M80 30 L120 30 M100 30 L100 170 M80 170 L120 170',J:'M130 30 L130 140 Q130 170 90 170 Q60 170 60 140',K:'M60 30 L60 170 M150 30 L60 105 M80 115 L150 170',
-  L:'M60 30 L60 170 L150 170',M:'M50 170 L50 30 L100 110 L150 30 L150 170',N:'M60 30 L60 170 L140 30 L140 170',O:'M100 30 Q160 30 160 100 Q160 170 100 170 Q40 170 40 100 Q40 30 100 30',
-  P:'M60 30 L60 170 M60 30 Q150 30 150 80 Q150 130 60 130',Q:'M100 30 Q160 30 160 100 Q160 170 100 170 Q40 170 40 100 Q40 30 100 30 M130 140 L160 170',
-  R:'M60 30 L60 170 M60 30 Q150 30 150 80 Q150 130 60 130 M80 130 L150 170',S:'M150 50 Q150 20 100 25 Q50 30 60 90 Q70 130 130 120 Q170 115 160 160 Q150 185 100 180 Q60 175 50 155',
-  T:'M50 30 L150 30 M100 30 L100 170',U:'M60 30 L60 135 Q60 170 100 170 Q140 170 140 135 L140 30',V:'M50 30 L100 170 L150 30',
-  W:'M40 30 L70 170 L100 100 L130 170 L160 30',X:'M50 30 L150 170 M150 30 L50 170',Y:'M50 30 L100 110 L150 30 M100 110 L100 170',Z:'M50 30 L150 30 L50 170 L150 170'
+  A:'M100 30 L50 170 M100 30 L150 170 M65 120 L135 120',
+  B:'M60 30 L60 170 M60 30 Q140 30 140 75 Q140 100 60 100 M60 100 Q150 100 150 135 Q150 170 60 170',
+  C:'M160 60 Q90 20 50 100 Q90 180 160 140',
+  D:'M60 30 L60 170 M60 30 Q170 30 170 100 Q170 170 60 170',
+  E:'M60 30 L60 170 M60 30 L150 30 M60 100 L140 100 M60 170 L150 170',
+  F:'M60 30 L60 170 M60 30 L150 30 M60 100 L140 100',
+  G:'M160 60 Q90 20 50 100 Q90 180 160 140 L160 100 L110 100',
+  H:'M60 30 L60 170 M140 30 L140 170 M60 100 L140 100',
+  I:'M80 30 L120 30 M100 30 L100 170 M80 170 L120 170',
+  J:'M130 30 L130 140 Q130 170 90 170 Q60 170 60 140',
+  K:'M60 30 L60 170 M150 30 L60 105 M80 115 L150 170',
+  L:'M60 30 L60 170 L150 170',
+  M:'M50 170 L50 30 L100 110 L150 30 L150 170',
+  N:'M60 30 L60 170 L140 30 L140 170',
+  O:'M100 30 Q160 30 160 100 Q160 170 100 170 Q40 170 40 100 Q40 30 100 30',
+  P:'M60 30 L60 170 M60 30 Q150 30 150 80 Q150 130 60 130',
+  Q:'M100 30 Q160 30 160 100 Q160 170 100 170 Q40 170 40 100 Q40 30 100 30 M130 140 L160 170',
+  R:'M60 30 L60 170 M60 30 Q150 30 150 80 Q150 130 60 130 M80 130 L150 170',
+  S:'M150 50 Q150 20 100 25 Q50 30 60 90 Q70 130 130 120 Q170 115 160 160 Q150 185 100 180 Q60 175 50 155',
+  T:'M50 30 L150 30 M100 30 L100 170',
+  U:'M60 30 L60 135 Q60 170 100 170 Q140 170 140 135 L140 30',
+  V:'M50 30 L100 170 L150 30',
+  W:'M40 30 L70 170 L100 100 L130 170 L160 30',
+  X:'M50 30 L150 170 M150 30 L50 170',
+  Y:'M50 30 L100 110 L150 30 M100 110 L100 170',
+  Z:'M50 30 L150 30 L50 170 L150 170'
 };
 var KATA_LIST = [
   {w:'Api',e:'🔥',s:'A-pi'},{w:'Buku',e:'📚',s:'Bu-ku'},{w:'Cicak',e:'🦎',s:'Ci-cak'},{w:'Domba',e:'🐑',s:'Dom-ba'},
@@ -503,8 +585,6 @@ var KATA_LIST = [
   {w:'Singa',e:'🦁',s:'Sin-ga'},{w:'Topi',e:'🎩',s:'To-pi'},{w:'Ulat',e:'🐛',s:'U-lat'},{w:'Wortel',e:'🥕',s:'Wor-tel'},
   {w:'Zebra',e:'🦓',s:'Ze-bra'},{w:'Apel',e:'🍎',s:'A-pel'},{w:'Bunga',e:'🌸',s:'Bu-nga'},{w:'Duku',e:'🍇',s:'Du-ku'}
 ];
-
-// DATA ANGKA
 var NUMBER_WORDS = ['nol','satu','dua','tiga','empat','lima','enam','tujuh','delapan','sembilan','sepuluh',
   'sebelas','dua belas','tiga belas','empat belas','lima belas','enam belas','tujuh belas','delapan belas','sembilan belas','dua puluh'];
 var NUMBER_EMOJIS = ['','🍎','🍊🍊','🍋🍋🍋','🍇🍇🍇🍇','⭐⭐⭐⭐⭐','🐣🐣🐣🐣🐣🐣','🌸🌸🌸🌸🌸🌸🌸','🐟🐟🐟🐟🐟🐟🐟🐟',
@@ -514,46 +594,168 @@ var NUMBER_EMOJIS = ['','🍎','🍊🍊','🍋🍋🍋','🍇🍇🍇🍇','⭐
   '🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉','🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀',
   '🌺🌺🌺🌺🌺🌺🌺🌺🌺🌺🌺🌺🌺🌺🌺🌺🌺🌺🌺🌺'];
 var NUMBER_DESCS = [
-  'Angka 0 artinya tidak ada. Kosong! Nol ditulis dengan satu lingkaran.',
-  'Angka 1 dibaca "satu". Ini adalah angka pertama!',
-  'Angka 2 dibaca "dua". Ada dua tangan, dua kaki, dan dua mata!',
-  'Angka 3 dibaca "tiga". Seperti tiga sisi segitiga!',
-  'Angka 4 dibaca "empat". Seperti empat roda mobil!',
-  'Angka 5 dibaca "lima". Sama dengan jumlah jari satu tangan!',
-  'Angka 6 dibaca "enam". Lebih banyak dari lima, kurang dari tujuh.',
-  'Angka 7 dibaca "tujuh". Ada 7 warna pelangi!',
-  'Angka 8 dibaca "delapan". Bentuknya seperti dua lingkaran.',
-  'Angka 9 dibaca "sembilan". Hampir sepuluh!',
-  'Angka 10 dibaca "sepuluh". Sama dengan jumlah semua jari tangan!',
-  'Angka 11 dibaca "sebelas". Ini adalah 10 ditambah 1.',
-  'Angka 12 dibaca "dua belas". Satu lusin sama dengan 12 benda!',
-  'Angka 13 dibaca "tiga belas". Ini adalah 10 ditambah 3.',
-  'Angka 14 dibaca "empat belas". Ini adalah 10 ditambah 4.',
-  'Angka 15 dibaca "lima belas". Setengah dari tiga puluh!',
-  'Angka 16 dibaca "enam belas". Ini adalah 10 ditambah 6.',
-  'Angka 17 dibaca "tujuh belas". Ini adalah 10 ditambah 7.',
-  'Angka 18 dibaca "delapan belas". Ini adalah 10 ditambah 8.',
-  'Angka 19 dibaca "sembilan belas". Hampir dua puluh!',
-  'Angka 20 dibaca "dua puluh". Sama dengan jumlah jari tangan dan kaki kita!'
+  'Angka nol artinya tidak ada sama sekali.',
+  'Angka satu. Ini adalah angka pertama.',
+  'Angka dua. Ada dua tangan dan dua kaki.',
+  'Angka tiga. Seperti tiga sisi segitiga.',
+  'Angka empat. Seperti empat roda mobil.',
+  'Angka lima. Sama dengan jumlah jari satu tangan.',
+  'Angka enam. Lebih banyak dari lima.',
+  'Angka tujuh. Ada tujuh warna pelangi.',
+  'Angka delapan. Bentuknya seperti dua lingkaran.',
+  'Angka sembilan. Hampir sepuluh.',
+  'Angka sepuluh. Sama dengan jumlah semua jari tangan.',
+  'Angka sebelas. Ini adalah sepuluh ditambah satu.',
+  'Angka dua belas. Satu lusin sama dengan dua belas benda.',
+  'Angka tiga belas. Sepuluh ditambah tiga.',
+  'Angka empat belas. Sepuluh ditambah empat.',
+  'Angka lima belas. Setengah dari tiga puluh.',
+  'Angka enam belas. Sepuluh ditambah enam.',
+  'Angka tujuh belas. Sepuluh ditambah tujuh.',
+  'Angka delapan belas. Sepuluh ditambah delapan.',
+  'Angka sembilan belas. Hampir dua puluh.',
+  'Angka dua puluh. Sama dengan jumlah jari tangan dan kaki kita.'
+];
+
+// PUJIAN per mode (akan disisipkan nama user)
+var PUJIAN_BENAR = [
+  'Betul! Pintar sekali, {nama}!', 'Keren banget, {nama}! Jawaban tepat!',
+  'Yay! {nama} benar! Luar biasa!', 'Wah, {nama} pinter! Betul!',
+  'Bagus sekali, {nama}!', 'Iya, {nama}! Itu betul!'
+];
+var PUJIAN_SALAH = [
+  'Hampir, {nama}! Coba lagi ya!', 'Belum tepat, {nama}. Yuk belajar lagi!',
+  'Tidak apa-apa, {nama}! Coba lagi!', 'Semangat, {nama}! Kamu pasti bisa!'
 ];
 
 // STATE
+var currentUser = '';
 var currentLetter = 'A';
 var currentNumber = 0;
 var hitungMode = 'tambah';
-var hitungBenar = 0;
-var hitungSoal = 0;
-var hitungAnswered = false;
-var hitungCurrentProblem = null;
+var hitungBenar = 0, hitungSoal = 0;
+var hitungAnswered = false, hitungCurrentProblem = null;
 var kuisHurufQ = [], kuisHurufCurrent = 0, kuisHurufScore = 0, kuisHurufAnswered = false;
 var kuisAngkaQ = [], kuisAngkaCurrent = 0, kuisAngkaScore = 0, kuisAngkaAnswered = false;
 var KUIS_TOTAL = 10;
 var drawColor = '#2D2D2D';
 var isDrawing = false, lastX = 0, lastY = 0, strokeCount = 0, lastPointerUp = true;
 var DRAW_COLORS = ['#FF6B6B','#5BC4F5','#6BCB77','#FFD93D','#C77DFF','#2D2D2D'];
-var synth = window.speechSynthesis;
+var traceAnimTimer = null;
 
-// NAVIGATION
+// ===================== HELPERS =====================
+function getPujian(arr) {
+  var t = arr[Math.floor(Math.random() * arr.length)];
+  return t.replace(/{nama}/g, currentUser);
+}
+function shuffle(arr) { return arr.slice().sort(function(){return Math.random()-0.5;}); }
+function getRandomLetters(exclude, n) {
+  var pool = LETTERS.filter(function(l){return l!==exclude;}), res=[];
+  while(res.length<n){var l=pool[Math.floor(Math.random()*pool.length)];if(res.indexOf(l)===-1)res.push(l);}
+  return res;
+}
+function getRandomNumbers(exclude, n) {
+  var res=[], tries=0;
+  while(res.length<n&&tries<100){tries++;var v=Math.floor(Math.random()*21);if(v!==exclude&&res.indexOf(v)===-1)res.push(v);}
+  return res;
+}
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');}, 2500);
+}
+
+// ===================== SPEECH =====================
+function getVoice() {
+  var voices = window.speechSynthesis.getVoices();
+  for(var i=0;i<voices.length;i++){
+    if(voices[i].lang && voices[i].lang.toLowerCase().indexOf('id')===0) return voices[i];
+  }
+  for(var j=0;j<voices.length;j++){
+    if(voices[j].lang && voices[j].lang.indexOf('en')===0) return voices[j];
+  }
+  return voices[0] || null;
+}
+function speak(text, rate, onEnd) {
+  if (!window.speechSynthesis) { showToast('Browser tidak mendukung suara'); return; }
+  try { window.speechSynthesis.cancel(); } catch(e) {}
+  setTimeout(function() {
+    var utt = new SpeechSynthesisUtterance(text);
+    utt.lang = 'id-ID'; utt.rate = rate||0.9; utt.pitch = 1.1; utt.volume = 1.0;
+    var v = getVoice(); if(v) utt.voice = v;
+    utt.onend = function(){ if(onEnd) onEnd(); };
+    utt.onerror = function(){};
+    try { window.speechSynthesis.speak(utt); } catch(e){}
+    if(onEnd) setTimeout(onEnd, Math.max(2000, text.length*90));
+  }, 80);
+}
+if(window.speechSynthesis && window.speechSynthesis.onvoiceschanged !== undefined) {
+  window.speechSynthesis.onvoiceschanged = function(){ window.speechSynthesis.getVoices(); };
+}
+
+// ===================== HALAMAN SAMBUTAN =====================
+(function buildWelcomeStars(){
+  var bg = document.getElementById('wstar-bg');
+  if(!bg) return;
+  var stars = ['⭐','🌟','✨','💫','🎈','🎉'];
+  for(var i=0;i<14;i++){
+    var s=document.createElement('span'); s.className='wstar';
+    s.textContent=stars[i%stars.length];
+    s.style.left=(Math.random()*95)+'%'; s.style.top=(Math.random()*95)+'%';
+    s.style.animationDelay=(Math.random()*5)+'s';
+    s.style.animationDuration=(4+Math.random()*4)+'s';
+    s.style.fontSize=(1+Math.random()*1.5)+'rem';
+    bg.appendChild(s);
+  }
+})();
+
+function speakWelcome() {
+  var btn = document.getElementById('welcome-speak-btn');
+  btn.classList.add('speaking');
+  speak('Halo, ayo kita belajar supaya jadi anak pintar. Siapa yang mau belajar hari ini? Neiva atau Neira?', 0.9, function(){
+    btn.classList.remove('speaking');
+  });
+  setTimeout(function(){ btn.classList.remove('speaking'); }, 6000);
+}
+
+function selectUser(name) {
+  currentUser = name;
+  var pw = document.getElementById('page-welcome');
+  pw.style.transition = 'opacity 0.5s, transform 0.5s';
+  pw.style.opacity = '0'; pw.style.transform = 'scale(1.05)';
+  setTimeout(function(){
+    pw.style.display = 'none';
+    document.getElementById('app-header').style.display = '';
+    document.getElementById('main-area').style.display = '';
+    var badge = document.getElementById('header-user-badge');
+    document.getElementById('header-user-name').textContent = name;
+    badge.classList.add('show');
+    speak('Halo ' + name + '! Yuk kita belajar bersama!', 0.95);
+    document.getElementById('home-greeting').textContent = 'Mau belajar apa hari ini, ' + name + '? 🎒';
+  }, 500);
+}
+
+function goWelcome() {
+  try { window.speechSynthesis.cancel(); } catch(e) {}
+  // Reset state
+  kuisHurufQ = []; kuisAngkaQ = [];
+  document.getElementById('app-header').style.display = 'none';
+  document.getElementById('nav-tabs').style.display = 'none';
+  document.getElementById('main-area').style.display = 'none';
+  document.getElementById('header-user-badge').classList.remove('show');
+  var pw = document.getElementById('page-welcome');
+  pw.style.transition = 'none';
+  pw.style.opacity = '0'; pw.style.transform = 'scale(0.97)';
+  pw.style.display = 'flex';
+  setTimeout(function(){
+    pw.style.transition = 'opacity 0.4s, transform 0.4s';
+    pw.style.opacity = '1'; pw.style.transform = 'scale(1)';
+  }, 20);
+  // Reset welcome speak button
+  document.getElementById('welcome-speak-btn').classList.remove('speaking');
+}
+
+// ===================== NAVIGATION =====================
 function goHome() {
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.getElementById('page-home').classList.add('active');
@@ -562,6 +764,7 @@ function goHome() {
   document.getElementById('app-header').className = 'mode-home';
   document.getElementById('header-title').innerHTML = '🌟 Belajar Yuk! <span class="star">✨</span>';
   document.getElementById('header-sub').textContent = 'Pilih materi yang ingin dipelajari';
+  try { window.speechSynthesis.cancel(); } catch(e) {}
 }
 
 function enterMode(mode) {
@@ -570,321 +773,378 @@ function enterMode(mode) {
   document.getElementById('back-btn').classList.add('show');
   var nav = document.getElementById('nav-tabs');
   nav.innerHTML = ''; nav.style.display = 'flex';
-  if(mode === 'huruf') {
+  if(mode==='huruf'){
     document.getElementById('app-header').className = 'mode-huruf';
     document.getElementById('header-title').innerHTML = '🔤 Mengenal Huruf <span class="star">✨</span>';
     document.getElementById('header-sub').textContent = 'Belajar huruf A sampai Z';
     nav.className = 'nav-tabs mode-huruf-nav';
-    var tabs = [{id:'huruf',label:'🔤 Huruf'},{id:'kata',label:'📖 Kata'},{id:'tulis',label:'✏️ Tulis'},{id:'kuis-huruf',label:'🎯 Kuis'}];
-    tabs.forEach(function(t,i){
-      var btn = document.createElement('button');
-      btn.className = 'tab-btn'+(i===0?' active':'');
-      btn.textContent = t.label;
-      (function(tid){ btn.onclick = function(){ showHurufTab(this,tid); }; })(t.id);
-      nav.appendChild(btn);
+    [{id:'huruf',label:'🔤 Huruf'},{id:'kata',label:'📖 Kata'},{id:'tulis',label:'✏️ Tulis'},{id:'kuis-huruf',label:'🎯 Kuis'}].forEach(function(t,i){
+      var btn=document.createElement('button'); btn.className='tab-btn'+(i===0?' active':''); btn.textContent=t.label;
+      (function(tid){btn.onclick=function(){showHurufTab(this,tid);};})(t.id); nav.appendChild(btn);
     });
-    if(!document.getElementById('alphabet-grid').children.length){ buildAlphabetGrid(); buildKataGrid(); buildTulisLetters(); buildColorGroup(); initCanvas(); }
+    if(!document.getElementById('alphabet-grid').children.length){buildAlphabetGrid();buildKataGrid();buildTulisLetters();buildColorGroup();initCanvas();}
     showLetterDetail('A');
   } else {
     document.getElementById('app-header').className = 'mode-angka';
     document.getElementById('header-title').innerHTML = '🔢 Angka &amp; Berhitung <span class="star">✨</span>';
     document.getElementById('header-sub').textContent = 'Belajar angka 0 sampai 20';
     nav.className = 'nav-tabs mode-angka-nav';
-    var tabs2 = [{id:'angka',label:'🔢 Angka'},{id:'hitung',label:'🧮 Berhitung'},{id:'kuis-angka',label:'🎯 Kuis'}];
-    tabs2.forEach(function(t,i){
-      var btn = document.createElement('button');
-      btn.className = 'tab-btn'+(i===0?' active':'');
-      btn.textContent = t.label;
-      (function(tid){ btn.onclick = function(){ showAngkaTab(this,tid); }; })(t.id);
-      nav.appendChild(btn);
+    [{id:'angka',label:'🔢 Angka'},{id:'hitung',label:'🧮 Berhitung'},{id:'kuis-angka',label:'🎯 Kuis'}].forEach(function(t,i){
+      var btn=document.createElement('button'); btn.className='tab-btn'+(i===0?' active':''); btn.textContent=t.label;
+      (function(tid){btn.onclick=function(){showAngkaTab(this,tid);};})(t.id); nav.appendChild(btn);
     });
     if(!document.getElementById('number-grid').children.length) buildNumberGrid();
     showNumberDetail(0); initHitung();
   }
 }
-
-function showHurufTab(btn, id) {
+function showHurufTab(btn,id){
   document.querySelectorAll('#page-huruf .section').forEach(function(s){s.classList.remove('active');});
   document.querySelectorAll('.mode-huruf-nav .tab-btn').forEach(function(b){b.classList.remove('active');});
-  document.getElementById('sec-'+id).classList.add('active');
-  btn.classList.add('active');
-  if(id==='kuis-huruf' && kuisHurufQ.length===0) startHurufKuis();
+  document.getElementById('sec-'+id).classList.add('active'); btn.classList.add('active');
+  if(id==='kuis-huruf'&&kuisHurufQ.length===0) startHurufKuis();
 }
-function showAngkaTab(btn, id) {
+function showAngkaTab(btn,id){
   document.querySelectorAll('#page-angka .section').forEach(function(s){s.classList.remove('active');});
   document.querySelectorAll('.mode-angka-nav .tab-btn').forEach(function(b){b.classList.remove('active');});
-  document.getElementById('sec-'+id).classList.add('active');
-  btn.classList.add('active');
-  if(id==='kuis-angka' && kuisAngkaQ.length===0) startAngkaKuis();
+  document.getElementById('sec-'+id).classList.add('active'); btn.classList.add('active');
+  if(id==='kuis-angka'&&kuisAngkaQ.length===0) startAngkaKuis();
 }
 
-// SPEECH
-function speak(text, rate) {
-  if(!synth) return; synth.cancel();
-  var utt = new SpeechSynthesisUtterance(text);
-  utt.lang = 'id-ID'; utt.rate = rate||1.0; utt.pitch = 1.1;
-  synth.speak(utt);
-}
+// ===================== SPEAK ACTIONS =====================
 function speakLetter() {
-  var btn = document.getElementById('main-speak-btn'); btn.classList.add('speaking');
+  var btn = document.getElementById('main-speak-btn');
+  btn.classList.add('speaking');
+  // FIX #1: Cukup "Huruf A, contoh kata: Apel, Ayam, Api"
   var data = LETTER_DATA[currentLetter];
-  speak('Huruf '+currentLetter+'. Contoh kata: '+data.words.map(function(w){return w.w;}).join(', '), 0.95);
-  setTimeout(function(){btn.classList.remove('speaking');}, 2500);
+  var contoh = data.words.map(function(w){return w.w;}).join(', ');
+  var text = 'Huruf ' + currentLetter + '. Contoh kata: ' + contoh;
+  speak(text, 0.88, function(){ btn.classList.remove('speaking'); });
+  setTimeout(function(){ btn.classList.remove('speaking'); }, 5000);
 }
-function speakNumber() {
-  var btn = document.getElementById('num-speak-btn'); btn.classList.add('speaking');
-  speak(currentNumber+'. '+NUMBER_WORDS[currentNumber], 0.95);
-  setTimeout(function(){btn.classList.remove('speaking');}, 2000);
-}
-function speakWord(word){ speak(word, 0.95); }
 
-// ALPHABET
+function speakNumber() {
+  var btn = document.getElementById('num-speak-btn');
+  btn.classList.add('speaking');
+  // FIX #4: Cukup "Angka 1" saja
+  speak('Angka ' + currentNumber, 0.88, function(){ btn.classList.remove('speaking'); });
+  setTimeout(function(){ btn.classList.remove('speaking'); }, 3000);
+}
+
+function speakWord(word) {
+  speak(word, 0.88);
+  showToast('🔊 ' + word);
+}
+
+// ===================== HURUF =====================
 function buildAlphabetGrid() {
   var grid = document.getElementById('alphabet-grid');
   LETTERS.forEach(function(l){
-    var card = document.createElement('div'); card.className='letter-card'; card.id='lc-'+l;
-    card.innerHTML = '<span class="letter-big">'+l+'</span><span class="letter-small">'+l.toLowerCase()+'</span>';
-    (function(ch){ card.onclick = function(){ showLetterDetail(ch); }; })(l);
+    var card=document.createElement('div'); card.className='letter-card'; card.id='lc-'+l;
+    card.innerHTML='<span class="letter-big">'+l+'</span><span class="letter-small">'+l.toLowerCase()+'</span>';
+    (function(ch){card.onclick=function(){showLetterDetail(ch);};})(l);
     grid.appendChild(card);
   });
 }
+
 function showLetterDetail(letter) {
   currentLetter = letter;
   document.querySelectorAll('.letter-card').forEach(function(c){c.classList.remove('selected');});
-  document.getElementById('lc-'+letter).classList.add('selected');
-  var data = LETTER_DATA[letter];
-  document.getElementById('detail-char').textContent = letter;
-  document.getElementById('detail-char-lower').textContent = letter.toLowerCase();
-  document.getElementById('detail-title').textContent = 'Huruf '+letter;
-  document.getElementById('detail-desc').textContent = data.desc;
-  var we = document.getElementById('word-examples'); we.innerHTML = '';
+  var lc=document.getElementById('lc-'+letter); if(lc) lc.classList.add('selected');
+  var data=LETTER_DATA[letter];
+  document.getElementById('detail-char').textContent=letter;
+  document.getElementById('detail-char-lower').textContent=letter.toLowerCase();
+  document.getElementById('detail-title').textContent='Huruf '+letter;
+  document.getElementById('detail-desc').textContent=data.desc;
+  var we=document.getElementById('word-examples'); we.innerHTML='';
   data.words.forEach(function(w){
-    var chip = document.createElement('div'); chip.className='word-chip';
-    chip.innerHTML = '<span style="font-size:1.3rem">'+w.e+'</span> '+w.w;
-    (function(ww){ chip.onclick = function(){ speakWord(ww); }; })(w.w);
+    var chip=document.createElement('div'); chip.className='word-chip';
+    chip.innerHTML='<span style="font-size:1.3rem">'+w.e+'</span> '+w.w;
+    (function(ww){chip.onclick=function(){speakWord(ww);};})(w.w);
     we.appendChild(chip);
   });
   document.getElementById('letter-detail').classList.add('show');
-  document.getElementById('letter-detail').scrollIntoView({behavior:'smooth',block:'nearest'});
-  animateLetterTrace(letter);
+  setTimeout(function(){
+    var el=document.getElementById('letter-detail');
+    if(el) el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }, 100);
+  // FIX #2: Animasi trace dengan requestAnimationFrame
+  setTimeout(function(){ animateLetterTrace(letter); }, 200);
+  setTimeout(function(){ speak('Huruf '+letter, 0.9); }, 400);
 }
+
+// FIX #2: Animasi trace diperbaiki total - tidak pakai CSS transition saja
 function animateLetterTrace(letter) {
-  var bg = document.getElementById('trace-bg'), fg = document.getElementById('trace-fg');
-  var path = LETTER_PATHS[letter]||'M100 30 L100 170';
-  bg.setAttribute('d',path); fg.setAttribute('d',path);
-  var len = fg.getTotalLength ? fg.getTotalLength() : 400;
-  fg.style.strokeDasharray = len; fg.style.strokeDashoffset = len;
+  var fg = document.getElementById('trace-fg');
+  var bg = document.getElementById('trace-bg');
+  var path = LETTER_PATHS[letter] || 'M100 30 L100 170';
+  fg.setAttribute('d', path);
+  bg.setAttribute('d', path);
+
   var colors = ['#FF6B6B','#5BC4F5','#6BCB77','#FFD93D','#C77DFF','#FFB347'];
-  fg.style.stroke = colors[LETTERS.indexOf(letter)%colors.length];
-  fg.style.transition = 'none'; void fg.getBoundingClientRect();
-  fg.style.transition = 'stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1)';
-  fg.style.strokeDashoffset = 0;
+  fg.style.stroke = colors[LETTERS.indexOf(letter) % colors.length];
+
+  // Dapatkan panjang path
+  var len = 300;
+  try { len = fg.getTotalLength(); } catch(e) { len = 300; }
+  if (!len || len < 1) len = 300;
+
+  // Reset
+  fg.style.transition = 'none';
+  fg.style.strokeDasharray = len + ' ' + len;
+  fg.style.strokeDashoffset = len;
+
+  // Paksa browser reflow sebelum animasi
+  if(traceAnimTimer) clearTimeout(traceAnimTimer);
+  traceAnimTimer = setTimeout(function(){
+    fg.style.transition = 'stroke-dashoffset 2s cubic-bezier(0.4,0,0.2,1)';
+    fg.style.strokeDashoffset = '0';
+  }, 80);
 }
+
 function buildKataGrid() {
   var grid = document.getElementById('kata-grid');
   KATA_LIST.forEach(function(k){
-    var card = document.createElement('div'); card.className='kata-card';
-    var btn = document.createElement('button'); btn.className='kata-speak-btn'; btn.textContent='🔊 Dengar';
-    (function(kk){ btn.onclick = function(e){e.stopPropagation();speakWord(kk.w);}; card.onclick=function(){speakWord(kk.w);}; })(k);
-    card.innerHTML = '<span class="kata-emoji">'+k.e+'</span><div class="kata-word">'+k.w+'</div><div class="kata-suku">'+k.s+'</div>';
+    var card=document.createElement('div'); card.className='kata-card';
+    var btn=document.createElement('button'); btn.className='kata-speak-btn'; btn.textContent='🔊 Dengar'; btn.type='button';
+    (function(kk){btn.onclick=function(e){e.stopPropagation();speakWord(kk.w);};card.onclick=function(){speakWord(kk.w);};})(k);
+    card.innerHTML='<span class="kata-emoji">'+k.e+'</span><div class="kata-word">'+k.w+'</div><div class="kata-suku">'+k.s+'</div>';
     card.appendChild(btn); grid.appendChild(card);
   });
 }
+
 function buildTulisLetters() {
-  var cont = document.getElementById('tulis-letters');
+  var cont=document.getElementById('tulis-letters');
   LETTERS.forEach(function(l){
-    var btn = document.createElement('button'); btn.className='tulis-letter-btn'; btn.textContent=l; btn.id='tlbtn-'+l;
-    (function(ll){ btn.onclick=function(){selectTulisLetter(ll);}; })(l);
-    cont.appendChild(btn);
-  }); selectTulisLetter('A');
+    var btn=document.createElement('button'); btn.className='tulis-letter-btn'; btn.textContent=l; btn.id='tlbtn-'+l; btn.type='button';
+    (function(ll){btn.onclick=function(){selectTulisLetter(ll);};})(l); cont.appendChild(btn);
+  });
+  selectTulisLetter('A');
 }
 function selectTulisLetter(l) {
   document.querySelectorAll('.tulis-letter-btn').forEach(function(b){b.classList.remove('active');});
-  document.getElementById('tlbtn-'+l).classList.add('active');
-  document.getElementById('guide-letter').textContent = l; clearCanvas();
+  var btn=document.getElementById('tlbtn-'+l); if(btn) btn.classList.add('active');
+  document.getElementById('guide-letter').textContent=l; clearCanvas();
 }
 function buildColorGroup() {
-  var grp = document.getElementById('color-group');
+  var grp=document.getElementById('color-group');
   DRAW_COLORS.forEach(function(c){
-    var dot = document.createElement('div'); dot.className='color-dot'+(c===drawColor?' active':''); dot.style.background=c;
-    (function(cc){ dot.onclick=function(){ drawColor=cc; document.querySelectorAll('.color-dot').forEach(function(d){d.classList.remove('active');}); dot.classList.add('active'); }; })(c);
+    var dot=document.createElement('div'); dot.className='color-dot'+(c===drawColor?' active':''); dot.style.background=c;
+    (function(cc){dot.onclick=function(){drawColor=cc;document.querySelectorAll('.color-dot').forEach(function(d){d.classList.remove('active');});dot.classList.add('active');};})(c);
     grp.appendChild(dot);
   });
 }
 function initCanvas() {
-  var canvas = document.getElementById('draw-canvas'), ctx = canvas.getContext('2d');
+  var canvas=document.getElementById('draw-canvas'), ctx=canvas.getContext('2d');
   ctx.lineCap='round'; ctx.lineJoin='round';
-  function getPos(e){ var r=canvas.getBoundingClientRect(),sx=canvas.width/r.width,sy=canvas.height/r.height; if(e.touches)return[(e.touches[0].clientX-r.left)*sx,(e.touches[0].clientY-r.top)*sy];return[(e.clientX-r.left)*sx,(e.clientY-r.top)*sy]; }
-  function startDraw(e){ e.preventDefault();isDrawing=true;if(lastPointerUp){strokeCount++;updateStrokeBadge();lastPointerUp=false;}var p=getPos(e);lastX=p[0];lastY=p[1]; }
-  function draw(e){ e.preventDefault();if(!isDrawing)return;var p=getPos(e),size=+document.getElementById('brush-size').value;ctx.strokeStyle=drawColor;ctx.lineWidth=size;ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(p[0],p[1]);ctx.stroke();lastX=p[0];lastY=p[1]; }
-  function endDraw(e){ e.preventDefault();isDrawing=false;lastPointerUp=true; }
+  function getPos(e){var r=canvas.getBoundingClientRect(),sx=canvas.width/r.width,sy=canvas.height/r.height;if(e.touches&&e.touches.length>0)return[(e.touches[0].clientX-r.left)*sx,(e.touches[0].clientY-r.top)*sy];return[(e.clientX-r.left)*sx,(e.clientY-r.top)*sy];}
+  function startDraw(e){e.preventDefault();isDrawing=true;if(lastPointerUp){strokeCount++;updateStrokeBadge();lastPointerUp=false;}var p=getPos(e);lastX=p[0];lastY=p[1];ctx.fillStyle=drawColor;ctx.beginPath();var sz=+document.getElementById('brush-size').value;ctx.arc(lastX,lastY,sz/2,0,Math.PI*2);ctx.fill();}
+  function draw(e){e.preventDefault();if(!isDrawing)return;var p=getPos(e),sz=+document.getElementById('brush-size').value;ctx.strokeStyle=drawColor;ctx.lineWidth=sz;ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(p[0],p[1]);ctx.stroke();lastX=p[0];lastY=p[1];}
+  function endDraw(e){if(e)e.preventDefault();isDrawing=false;lastPointerUp=true;}
   canvas.addEventListener('mousedown',startDraw); canvas.addEventListener('mousemove',draw); canvas.addEventListener('mouseup',endDraw); canvas.addEventListener('mouseleave',endDraw);
   canvas.addEventListener('touchstart',startDraw,{passive:false}); canvas.addEventListener('touchmove',draw,{passive:false}); canvas.addEventListener('touchend',endDraw,{passive:false});
 }
-function clearCanvas(){ var c=document.getElementById('draw-canvas');c.getContext('2d').clearRect(0,0,c.width,c.height);strokeCount=0;updateStrokeBadge(); }
-function updateStrokeBadge(){ document.getElementById('stroke-badge').textContent=strokeCount+' goresan'; }
+function clearCanvas(){var c=document.getElementById('draw-canvas');c.getContext('2d').clearRect(0,0,c.width,c.height);strokeCount=0;updateStrokeBadge();}
+function updateStrokeBadge(){document.getElementById('stroke-badge').textContent=strokeCount+' goresan';}
 
-// NUMBER GRID
-function buildNumberGrid() {
-  var grid = document.getElementById('number-grid');
+// ===================== ANGKA =====================
+function buildNumberGrid(){
+  var grid=document.getElementById('number-grid');
   for(var i=0;i<=20;i++){
-    var card=document.createElement('div');card.className='number-card';card.id='nc-'+i;
-    var em=i===0?'':Array.from(NUMBER_EMOJIS[i]||'').slice(0,Math.min(i,3)).join('');
+    var card=document.createElement('div'); card.className='number-card'; card.id='nc-'+i;
     card.innerHTML='<span class="number-big">'+i+'</span><span class="number-word-small">'+NUMBER_WORDS[i]+'</span>';
-    (function(n){ card.onclick=function(){showNumberDetail(n);}; })(i);
-    grid.appendChild(card);
+    (function(n){card.onclick=function(){showNumberDetail(n);};})(i); grid.appendChild(card);
   }
 }
-function showNumberDetail(num) {
+function showNumberDetail(num){
   currentNumber=num;
   document.querySelectorAll('.number-card').forEach(function(c){c.classList.remove('selected');});
-  var nc=document.getElementById('nc-'+num); if(nc)nc.classList.add('selected');
+  var nc=document.getElementById('nc-'+num); if(nc) nc.classList.add('selected');
   document.getElementById('detail-num').textContent=num;
   document.getElementById('detail-num-word').textContent=NUMBER_WORDS[num];
   document.getElementById('detail-num-title').textContent='Angka '+num+' — '+NUMBER_WORDS[num];
   document.getElementById('detail-num-desc').textContent=NUMBER_DESCS[num];
   var cont=document.getElementById('dots-container'); cont.innerHTML='';
-  if(num===0){ cont.innerHTML='<span style="color:#ccc;font-size:0.9rem;font-weight:700;">Kosong — tidak ada benda!</span>'; }
-  else{
-    var emojis=Array.from(NUMBER_EMOJIS[num]||'').slice(0,num);
-    emojis.forEach(function(em,idx){
-      var span=document.createElement('span'); span.className='dot-item'; span.textContent=em;
-      span.style.animationDelay=(idx*55)+'ms'; cont.appendChild(span);
-    });
-  }
+  if(num===0){cont.innerHTML='<span style="color:#ccc;font-size:0.9rem;font-weight:700;">Kosong — tidak ada benda!</span>';}
+  else{Array.from(NUMBER_EMOJIS[num]||'').slice(0,num).forEach(function(em,idx){var span=document.createElement('span');span.className='dot-item';span.textContent=em;span.style.animationDelay=(idx*55)+'ms';cont.appendChild(span);});}
   document.getElementById('number-detail').classList.add('show');
-  document.getElementById('number-detail').scrollIntoView({behavior:'smooth',block:'nearest'});
-  setTimeout(function(){ speak(NUMBER_WORDS[num],0.95); },300);
+  setTimeout(function(){var el=document.getElementById('number-detail');if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});},100);
+  // FIX #4: Auto-speak cukup angka saja
+  setTimeout(function(){ speak('Angka '+num, 0.9); }, 400);
 }
 
-// BERHITUNG
-function setHitungMode(mode, btn) {
-  hitungMode=mode;
-  document.querySelectorAll('.hitung-mode-btn').forEach(function(b){b.classList.remove('active');});
-  btn.classList.add('active'); hitungBenar=0; hitungSoal=0;
-  document.getElementById('hitung-benar').textContent='0'; document.getElementById('hitung-soal').textContent='0';
-  renderHitungProblem();
-}
-function initHitung(){ hitungBenar=0;hitungSoal=0;document.getElementById('hitung-benar').textContent='0';document.getElementById('hitung-soal').textContent='0';renderHitungProblem(); }
-function renderHitungProblem() {
+// ===================== BERHITUNG =====================
+function setHitungMode(mode,btn){hitungMode=mode;document.querySelectorAll('.hitung-mode-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');hitungBenar=0;hitungSoal=0;document.getElementById('hitung-benar').textContent='0';document.getElementById('hitung-soal').textContent='0';renderHitungProblem();}
+function initHitung(){hitungBenar=0;hitungSoal=0;document.getElementById('hitung-benar').textContent='0';document.getElementById('hitung-soal').textContent='0';renderHitungProblem();}
+function renderHitungProblem(){
   hitungAnswered=false;
-  var op; if(hitungMode==='tambah')op='+'; else if(hitungMode==='kurang')op='-'; else op=Math.random()>0.5?'+':'-';
+  var op=hitungMode==='tambah'?'+':hitungMode==='kurang'?'-':Math.random()>0.5?'+':'-';
   var a,b;
   if(op==='+'){a=Math.floor(Math.random()*9)+1;b=Math.floor(Math.random()*(10-a))+1;}
   else{a=Math.floor(Math.random()*9)+2;b=Math.floor(Math.random()*(a-1))+1;}
   var answer=op==='+'?a+b:a-b;
-  var opts=[answer];
-  while(opts.length<4){var wrong=answer+(Math.floor(Math.random()*5)+1)*(Math.random()>0.5?1:-1);if(wrong>=0&&wrong<=20&&opts.indexOf(wrong)===-1)opts.push(wrong);}
-  opts.sort(function(){return Math.random()-0.5;});
+  var opts=[answer], tries=0;
+  while(opts.length<4&&tries<50){tries++;var w=answer+(Math.floor(Math.random()*5)+1)*(Math.random()>0.5?1:-1);if(w>=0&&w<=20&&opts.indexOf(w)===-1)opts.push(w);}
+  while(opts.length<4){var v=Math.floor(Math.random()*21);if(opts.indexOf(v)===-1)opts.push(v);}
+  opts=shuffle(opts);
   hitungCurrentProblem={a:a,b:b,op:op,answer:answer,opts:opts};
-  var emojiA=Array.from(NUMBER_EMOJIS[a]||'').slice(0,a);
-  var emojiB=Array.from(NUMBER_EMOJIS[b]||'').slice(0,b);
-  var opLabel=op==='+'?'➕':'➖';
-  var html='<div class="hitung-visual">';
-  html+='<div class="hitung-group">';
-  emojiA.forEach(function(em,i){html+='<span class="hitung-emoji" style="animation-delay:'+i*50+'ms">'+em+'</span>';});
-  html+='</div><div class="hitung-op">'+opLabel+'</div><div class="hitung-group">';
-  emojiB.forEach(function(em,i){html+='<span class="hitung-emoji" style="animation-delay:'+(i*50+200)+'ms">'+em+'</span>';});
+  var eA=Array.from(NUMBER_EMOJIS[a]||'').slice(0,a), eB=Array.from(NUMBER_EMOJIS[b]||'').slice(0,b);
+  var opL=op==='+'?'➕':'➖';
+  var html='<div class="hitung-visual"><div class="hitung-group">';
+  eA.forEach(function(em,i){html+='<span class="hitung-emoji" style="animation-delay:'+i*50+'ms">'+em+'</span>';});
+  html+='</div><div class="hitung-op">'+opL+'</div><div class="hitung-group">';
+  eB.forEach(function(em,i){html+='<span class="hitung-emoji" style="animation-delay:'+(i*50+200)+'ms">'+em+'</span>';});
   html+='</div><div class="hitung-eq">=</div><div class="hitung-op" style="color:#ccc;">?</div></div>';
   html+='<div class="hitung-question-text"><span>'+a+'</span> <span class="op">'+op+'</span> <span>'+b+'</span> <span class="op">=</span> <span class="qmark">?</span></div>';
   html+='<div class="hitung-options" id="hitung-opts-container"></div>';
   html+='<div class="hitung-feedback" id="hitung-fb"></div>';
-  html+='<button class="hitung-next-btn" id="hitung-next-btn" onclick="renderHitungProblem()">➡️ Soal Berikutnya</button>';
+  html+='<button class="hitung-next-btn" id="hitung-next-btn" type="button" onclick="renderHitungProblem()">➡️ Soal Berikutnya</button>';
   document.getElementById('hitung-problem').innerHTML=html;
   opts.forEach(function(opt){
-    var btn=document.createElement('button'); btn.className='hitung-opt'; btn.textContent=opt;
-    (function(v){ btn.onclick=function(){answerHitung(v,btn);}; })(opt);
+    var btn=document.createElement('button'); btn.className='hitung-opt'; btn.type='button'; btn.textContent=opt;
+    (function(v){btn.onclick=function(){answerHitung(v,btn);};})(opt);
     document.getElementById('hitung-opts-container').appendChild(btn);
   });
-  speak(a+(op==='+'?' tambah ':' kurang ')+b+' sama dengan?',1.0);
+  setTimeout(function(){speak(a+(op==='+'?' tambah ':' kurang ')+b+' sama dengan?',1.0);},300);
 }
-function answerHitung(val, btn) {
-  if(hitungAnswered)return; hitungAnswered=true; hitungSoal++;
+function answerHitung(val,btn){
+  if(hitungAnswered) return; hitungAnswered=true; hitungSoal++;
   document.getElementById('hitung-soal').textContent=hitungSoal;
   document.querySelectorAll('#hitung-opts-container .hitung-opt').forEach(function(b){b.classList.add('disabled');});
   var fb=document.getElementById('hitung-fb'), nxt=document.getElementById('hitung-next-btn');
   if(val===hitungCurrentProblem.answer){
     hitungBenar++; document.getElementById('hitung-benar').textContent=hitungBenar;
-    btn.classList.add('correct'); fb.className='hitung-feedback show ok';
-    fb.innerHTML='✅ Betul! '+hitungCurrentProblem.a+' '+hitungCurrentProblem.op+' '+hitungCurrentProblem.b+' = '+hitungCurrentProblem.answer+' 🎉';
-    speak('Betul! Hebat sekali!',1); if(hitungBenar>0&&hitungBenar%5===0)launchConfetti();
+    btn.classList.add('correct');
+    var pujian = getPujian(PUJIAN_BENAR);
+    fb.className='hitung-feedback show ok'; fb.innerHTML='✅ '+pujian+' '+hitungCurrentProblem.a+' '+hitungCurrentProblem.op+' '+hitungCurrentProblem.b+' = '+hitungCurrentProblem.answer+' 🎉';
+    speak(pujian, 1);
+    if(hitungBenar>0&&hitungBenar%5===0) launchConfetti();
   } else {
     btn.classList.add('wrong');
     document.querySelectorAll('#hitung-opts-container .hitung-opt').forEach(function(b){if(+b.textContent===hitungCurrentProblem.answer)b.classList.add('correct');});
-    fb.className='hitung-feedback show ng'; fb.innerHTML='❌ Jawaban yang benar: '+hitungCurrentProblem.answer;
-    speak('Kurang tepat. Jawaban yang benar adalah '+hitungCurrentProblem.answer,1.0);
+    var salah=getPujian(PUJIAN_SALAH);
+    fb.className='hitung-feedback show ng'; fb.innerHTML='❌ '+salah+' Jawaban: '+hitungCurrentProblem.answer;
+    speak(salah+' Jawaban yang benar adalah '+hitungCurrentProblem.answer, 1.0);
   }
   nxt.classList.add('show');
 }
 
-// KUIS HURUF
-function startHurufKuis(){kuisHurufQ=generateHurufQ();kuisHurufCurrent=0;kuisHurufScore=0;document.getElementById('kuis-huruf-result').classList.remove('show');document.getElementById('kuis-huruf-game').style.display='';document.getElementById('score-huruf-display').textContent='0';renderHurufQ();}
+// ===================== KUIS HURUF =====================
+function startHurufKuis(){
+  kuisHurufQ=generateHurufQ(); kuisHurufCurrent=0; kuisHurufScore=0;
+  document.getElementById('kuis-huruf-result').classList.remove('show');
+  document.getElementById('kuis-huruf-game').style.display='';
+  document.getElementById('score-huruf-display').textContent='0';
+  renderHurufQ();
+}
 function generateHurufQ(){
-  var types=['huruf-suara','kata-huruf','huruf-kata'],qs=[],used={};
-  while(qs.length<KUIS_TOTAL){
-    var type=types[Math.floor(Math.random()*types.length)],letter=LETTERS[Math.floor(Math.random()*LETTERS.length)],key=type+'-'+letter;
-    if(used[key])continue; used[key]=true;
-    if(type==='huruf-suara'){var opts=shuffle([letter].concat(getRandomLetters(letter,3)));qs.push({type:type,q:'Huruf apakah ini?',big:letter,opts:opts.map(function(o){return{label:o,val:o};}),correct:letter});}
-    else if(type==='kata-huruf'){var wo=LETTER_DATA[letter].words[0];var opts2=shuffle([letter].concat(getRandomLetters(letter,3)));qs.push({type:type,q:'Kata "'+wo.w+' '+wo.e+'" dimulai huruf apa?',big:null,opts:opts2.map(function(o){return{label:o,val:o};}),correct:letter});}
-    else{var cw=LETTER_DATA[letter].words[0];var wl=getRandomLetters(letter,3);var allO=shuffle([cw].concat(wl.map(function(l){return LETTER_DATA[l].words[0];})));qs.push({type:type,q:'Pilih kata yang dimulai huruf:',big:letter,opts:allO.map(function(o){return{label:o.e+' '+o.w,val:o.w};}),correct:cw.w});}
-  }return qs;
+  var types=['huruf-suara','kata-huruf','huruf-kata'],qs=[],used={},tries=0;
+  while(qs.length<KUIS_TOTAL&&tries<200){
+    tries++;
+    var type=types[Math.floor(Math.random()*types.length)];
+    var letter=LETTERS[Math.floor(Math.random()*LETTERS.length)];
+    var key=type+'-'+letter; if(used[key]) continue; used[key]=true;
+    if(type==='huruf-suara'){
+      var opts=shuffle([letter].concat(getRandomLetters(letter,3)));
+      qs.push({type:type,q:'Huruf apakah ini?',big:letter,opts:opts.map(function(o){return{label:o,val:o};}),correct:letter});
+    } else if(type==='kata-huruf'){
+      var wo=LETTER_DATA[letter].words[0];
+      var opts2=shuffle([letter].concat(getRandomLetters(letter,3)));
+      qs.push({type:type,q:'Kata "'+wo.w+' '+wo.e+'" dimulai huruf apa?',big:null,opts:opts2.map(function(o){return{label:o,val:o};}),correct:letter});
+    } else {
+      var cw=LETTER_DATA[letter].words[0];
+      var allO=shuffle([cw].concat(getRandomLetters(letter,3).map(function(l){return LETTER_DATA[l].words[0];})));
+      qs.push({type:type,q:'Pilih kata yang dimulai huruf:',big:letter,opts:allO.map(function(o){return{label:o.e+' '+o.w,val:o.w};}),correct:cw.w});
+    }
+  }
+  return qs;
 }
 function renderHurufQ(){
   if(kuisHurufCurrent>=KUIS_TOTAL){showHurufResult();return;} kuisHurufAnswered=false;
   var q=kuisHurufQ[kuisHurufCurrent];
   document.getElementById('kuis-huruf-type-label').textContent='SOAL '+(kuisHurufCurrent+1)+' dari '+KUIS_TOTAL;
   document.getElementById('progress-huruf').style.width=((kuisHurufCurrent/KUIS_TOTAL)*100)+'%';
-  var qHTML=q.q; if(q.big)qHTML+='<span class="big-letter">'+q.big+'</span>';
+  var qHTML=q.q; if(q.big) qHTML+='<span class="big-letter">'+q.big+'</span>';
   document.getElementById('kuis-huruf-question').innerHTML=qHTML;
   var optsEl=document.getElementById('kuis-huruf-options'); optsEl.innerHTML='';
   q.opts.forEach(function(opt){
-    var btn=document.createElement('button'); btn.className='kuis-opt'; btn.innerHTML=opt.label;
+    var btn=document.createElement('button'); btn.className='kuis-opt'; btn.type='button'; btn.innerHTML=opt.label;
     (function(v,b){btn.onclick=function(){answerHuruf(v,b);};})(opt.val,btn); optsEl.appendChild(btn);
   });
-  document.getElementById('kuis-huruf-feedback').classList.remove('show','ok','ng');
+  document.getElementById('kuis-huruf-feedback').className='kuis-feedback';
   document.getElementById('kuis-huruf-next-btn').classList.remove('show');
+  if(q.big) setTimeout(function(){speak('Huruf '+q.big, 0.9);},300);
 }
 function answerHuruf(val,btn){
-  if(kuisHurufAnswered)return; kuisHurufAnswered=true;
+  if(kuisHurufAnswered) return; kuisHurufAnswered=true;
   var q=kuisHurufQ[kuisHurufCurrent];
   document.querySelectorAll('#kuis-huruf-options .kuis-opt').forEach(function(b){b.classList.add('disabled');});
   var fb=document.getElementById('kuis-huruf-feedback');
-  if(val===q.correct){kuisHurufScore++;btn.classList.add('correct');fb.className='kuis-feedback show ok';fb.innerHTML='✅ <span>Betul! Jawaban: <b>'+q.correct+'</b>. Hebat! 🎉</span>';document.getElementById('score-huruf-display').textContent=kuisHurufScore;speak('Betul! Bagus sekali!',1);if(kuisHurufScore===KUIS_TOTAL)launchConfetti();}
-  else{btn.classList.add('wrong');document.querySelectorAll('#kuis-huruf-options .kuis-opt').forEach(function(b){if(b.textContent.trim()===q.correct||b.innerHTML.includes(q.correct))b.classList.add('correct');});fb.className='kuis-feedback show ng';fb.innerHTML='❌ <span>Kurang tepat. Jawaban: <b>'+q.correct+'</b>.</span>';speak('Kurang tepat, coba lagi ya!',1);}
+  if(val===q.correct){
+    kuisHurufScore++; btn.classList.add('correct');
+    var pujian=getPujian(PUJIAN_BENAR);
+    fb.className='kuis-feedback show ok'; fb.innerHTML='✅ <span>'+pujian+' Jawaban: <b>'+q.correct+'</b> 🎉</span>';
+    document.getElementById('score-huruf-display').textContent=kuisHurufScore;
+    speak(pujian, 1);
+    if(kuisHurufScore===KUIS_TOTAL) launchConfetti();
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('#kuis-huruf-options .kuis-opt').forEach(function(b){if(b.textContent.trim()===q.correct||b.innerHTML.includes(q.correct))b.classList.add('correct');});
+    var salah=getPujian(PUJIAN_SALAH);
+    fb.className='kuis-feedback show ng'; fb.innerHTML='❌ <span>'+salah+' Jawaban: <b>'+q.correct+'</b></span>';
+    speak(salah, 1);
+  }
   document.getElementById('kuis-huruf-next-btn').classList.add('show');
 }
 function nextHurufQuestion(){kuisHurufCurrent++;renderHurufQ();}
 function showHurufResult(){
-  document.getElementById('kuis-huruf-game').style.display='none';document.getElementById('kuis-huruf-result').classList.add('show');
-  document.getElementById('huruf-score-final').textContent=kuisHurufScore+'/'+KUIS_TOTAL;document.getElementById('progress-huruf').style.width='100%';
-  var trophy='🏆',msg='';if(kuisHurufScore===KUIS_TOTAL){trophy='🥇';msg='Sempurna! Kamu luar biasa! 🌟🎉';}else if(kuisHurufScore>=8){trophy='🏆';msg='Bagus sekali! Terus belajar ya! 😊';}else if(kuisHurufScore>=5){trophy='🥈';msg='Lumayan! Bisa lebih baik lagi! 💪';}else{trophy='🥉';msg='Ayo belajar lebih giat! Semangat! 📚';}
-  document.getElementById('huruf-result-trophy').textContent=trophy;document.getElementById('huruf-result-msg').textContent=msg;
-  if(kuisHurufScore===KUIS_TOTAL)launchConfetti();speak('Kuis selesai. Nilaimu '+kuisHurufScore+' dari '+KUIS_TOTAL+'. '+msg,1.0);
+  document.getElementById('kuis-huruf-game').style.display='none';
+  document.getElementById('kuis-huruf-result').classList.add('show');
+  document.getElementById('huruf-score-final').textContent=kuisHurufScore+'/'+KUIS_TOTAL;
+  document.getElementById('progress-huruf').style.width='100%';
+  var trophy='🏆',msg='';
+  if(kuisHurufScore===KUIS_TOTAL){trophy='🥇';msg=currentUser+' sempurna! Kamu luar biasa! 🌟🎉';}
+  else if(kuisHurufScore>=8){trophy='🏆';msg='Bagus sekali, '+currentUser+'! Terus belajar ya! 😊';}
+  else if(kuisHurufScore>=5){trophy='🥈';msg='Lumayan, '+currentUser+'! Bisa lebih baik lagi! 💪';}
+  else{trophy='🥉';msg='Semangat, '+currentUser+'! Ayo belajar lagi! 📚';}
+  document.getElementById('huruf-result-trophy').textContent=trophy;
+  document.getElementById('huruf-result-title').textContent=currentUser+', Luar Biasa!';
+  document.getElementById('huruf-result-msg').textContent=msg;
+  if(kuisHurufScore===KUIS_TOTAL) launchConfetti();
+  speak('Kuis selesai. '+currentUser+', nilaimu '+kuisHurufScore+' dari '+KUIS_TOTAL+'. '+msg, 1.0);
 }
 
-// KUIS ANGKA
-function startAngkaKuis(){kuisAngkaQ=generateAngkaQ();kuisAngkaCurrent=0;kuisAngkaScore=0;document.getElementById('kuis-angka-result').classList.remove('show');document.getElementById('kuis-angka-game').style.display='';document.getElementById('score-angka-display').textContent='0';renderAngkaQ();}
+// ===================== KUIS ANGKA =====================
+function startAngkaKuis(){
+  kuisAngkaQ=generateAngkaQ(); kuisAngkaCurrent=0; kuisAngkaScore=0;
+  document.getElementById('kuis-angka-result').classList.remove('show');
+  document.getElementById('kuis-angka-game').style.display='';
+  document.getElementById('score-angka-display').textContent='0';
+  renderAngkaQ();
+}
 function generateAngkaQ(){
-  var types=['angka-kata','kata-angka','hitung-quiz','dots-angka'],qs=[],used={};
-  while(qs.length<KUIS_TOTAL){
+  var types=['angka-kata','kata-angka','hitung-quiz','dots-angka'],qs=[],used={},tries=0;
+  while(qs.length<KUIS_TOTAL&&tries<200){
+    tries++;
     var type=types[Math.floor(Math.random()*types.length)];
     if(type==='hitung-quiz'){
       var a=Math.floor(Math.random()*8)+1,b=Math.floor(Math.random()*(8-a))+1,ans=a+b;
-      if(ans>20)continue; var key2='hq-'+a+'+'+b; if(used[key2])continue; used[key2]=true;
-      var wOpts=getRandomNumbers(ans,3),allO=shuffle([ans].concat(wOpts));
+      if(ans>20) continue;
+      var k2='hq-'+a+'+'+b; if(used[k2]) continue; used[k2]=true;
+      var allO=shuffle([ans].concat(getRandomNumbers(ans,3)));
       qs.push({type:type,q:a+' + '+b+' = ?',opts:allO.map(function(n){return{label:''+n,val:n};}),correct:ans});
     } else if(type==='dots-angka'){
-      var n=Math.floor(Math.random()*10)+1,key3='da-'+n; if(used[key3])continue; used[key3]=true;
-      var dOpts=getRandomNumbers(n,3),allD=shuffle([n].concat(dOpts));
+      var n=Math.floor(Math.random()*10)+1,k3='da-'+n; if(used[k3]) continue; used[k3]=true;
+      var allD=shuffle([n].concat(getRandomNumbers(n,3)));
       var dotsStr=Array.from(NUMBER_EMOJIS[n]||'').slice(0,n).join('');
       qs.push({type:type,q:'Ada berapa benda di bawah ini?',dots:dotsStr,opts:allD.map(function(x){return{label:''+x,val:x};}),correct:n});
     } else {
-      var num=Math.floor(Math.random()*21),key4=type+'-'+num; if(used[key4])continue; used[key4]=true;
-      var nOpts=getRandomNumbers(num,3),allN=shuffle([num].concat(nOpts));
+      var num=Math.floor(Math.random()*21),k4=type+'-'+num; if(used[k4]) continue; used[k4]=true;
+      var allN=shuffle([num].concat(getRandomNumbers(num,3)));
       if(type==='angka-kata') qs.push({type:type,q:'Angka berapa ini?',big:num,opts:allN.map(function(x){return{label:NUMBER_WORDS[x],val:x};}),correct:num});
       else qs.push({type:type,q:'Tuliskan angka untuk kata ini:',bigWord:NUMBER_WORDS[num],opts:allN.map(function(x){return{label:''+x,val:x};}),correct:num});
     }
-  }return qs;
+  }
+  return qs;
 }
 function renderAngkaQ(){
   if(kuisAngkaCurrent>=KUIS_TOTAL){showAngkaResult();return;} kuisAngkaAnswered=false;
@@ -892,46 +1152,71 @@ function renderAngkaQ(){
   document.getElementById('kuis-angka-type-label').textContent='SOAL '+(kuisAngkaCurrent+1)+' dari '+KUIS_TOTAL;
   document.getElementById('progress-angka').style.width=((kuisAngkaCurrent/KUIS_TOTAL)*100)+'%';
   var qHTML=q.q;
-  if(q.big!==undefined&&q.big!==null)qHTML+='<span class="big-number">'+q.big+'</span>';
-  if(q.bigWord)qHTML+='<span class="big-number" style="font-size:2.5rem;color:var(--purple);">'+q.bigWord+'</span>';
-  if(q.dots)qHTML+='<div style="font-size:1.6rem;margin:10px 0;text-align:center;line-height:2;">'+q.dots+'</div>';
+  if(q.big!==undefined&&q.big!==null) qHTML+='<span class="big-number">'+q.big+'</span>';
+  if(q.bigWord) qHTML+='<span class="big-number" style="font-size:2.5rem;color:var(--purple);">'+q.bigWord+'</span>';
+  if(q.dots) qHTML+='<div style="font-size:1.6rem;margin:10px 0;text-align:center;line-height:2;">'+q.dots+'</div>';
   document.getElementById('kuis-angka-question').innerHTML=qHTML;
   var optsEl=document.getElementById('kuis-angka-options'); optsEl.innerHTML='';
   q.opts.forEach(function(opt){
-    var btn=document.createElement('button'); btn.className='kuis-opt'; btn.innerHTML=opt.label;
+    var btn=document.createElement('button'); btn.className='kuis-opt'; btn.type='button'; btn.innerHTML=opt.label;
     (function(v,b){btn.onclick=function(){answerAngka(v,b);};})(opt.val,btn); optsEl.appendChild(btn);
   });
-  document.getElementById('kuis-angka-feedback').classList.remove('show','ok','ng');
+  document.getElementById('kuis-angka-feedback').className='kuis-feedback';
   document.getElementById('kuis-angka-next-btn').classList.remove('show');
+  if(q.big!==undefined&&q.big!==null) setTimeout(function(){speak('Angka '+q.big,0.9);},300);
 }
 function answerAngka(val,btn){
-  if(kuisAngkaAnswered)return; kuisAngkaAnswered=true;
+  if(kuisAngkaAnswered) return; kuisAngkaAnswered=true;
   var q=kuisAngkaQ[kuisAngkaCurrent];
   document.querySelectorAll('#kuis-angka-options .kuis-opt').forEach(function(b){b.classList.add('disabled');});
   var fb=document.getElementById('kuis-angka-feedback');
-  if(val===q.correct){kuisAngkaScore++;btn.classList.add('correct');fb.className='kuis-feedback show ok';fb.innerHTML='✅ <span>Betul! Jawaban: <b>'+q.correct+'</b>. Keren! 🎉</span>';document.getElementById('score-angka-display').textContent=kuisAngkaScore;speak('Betul! Keren sekali!',1);if(kuisAngkaScore===KUIS_TOTAL)launchConfetti();}
-  else{btn.classList.add('wrong');document.querySelectorAll('#kuis-angka-options .kuis-opt').forEach(function(b){if(b.textContent.trim()===''+q.correct||b.innerHTML===''+q.correct)b.classList.add('correct');});fb.className='kuis-feedback show ng';fb.innerHTML='❌ <span>Kurang tepat. Jawaban: <b>'+q.correct+'</b>.</span>';speak('Kurang tepat. Jawaban yang benar adalah '+q.correct,1.0);}
+  if(val===q.correct){
+    kuisAngkaScore++; btn.classList.add('correct');
+    var pujian=getPujian(PUJIAN_BENAR);
+    fb.className='kuis-feedback show ok'; fb.innerHTML='✅ <span>'+pujian+' Jawaban: <b>'+q.correct+'</b> 🎉</span>';
+    document.getElementById('score-angka-display').textContent=kuisAngkaScore;
+    speak(pujian, 1);
+    if(kuisAngkaScore===KUIS_TOTAL) launchConfetti();
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('#kuis-angka-options .kuis-opt').forEach(function(b){if(b.textContent.trim()===''+q.correct)b.classList.add('correct');});
+    var salah=getPujian(PUJIAN_SALAH);
+    fb.className='kuis-feedback show ng'; fb.innerHTML='❌ <span>'+salah+' Jawaban: <b>'+q.correct+'</b></span>';
+    speak(salah+' Jawaban yang benar adalah '+NUMBER_WORDS[q.correct], 1.0);
+  }
   document.getElementById('kuis-angka-next-btn').classList.add('show');
 }
 function nextAngkaQuestion(){kuisAngkaCurrent++;renderAngkaQ();}
 function showAngkaResult(){
-  document.getElementById('kuis-angka-game').style.display='none';document.getElementById('kuis-angka-result').classList.add('show');
-  document.getElementById('angka-score-final').textContent=kuisAngkaScore+'/'+KUIS_TOTAL;document.getElementById('progress-angka').style.width='100%';
-  var trophy='🏆',msg='';if(kuisAngkaScore===KUIS_TOTAL){trophy='🥇';msg='Sempurna! Kamu jenius! 🌟🎉';}else if(kuisAngkaScore>=8){trophy='🏆';msg='Bagus sekali! 😊';}else if(kuisAngkaScore>=5){trophy='🥈';msg='Lumayan! Bisa lebih baik lagi! 💪';}else{trophy='🥉';msg='Ayo latihan lagi! Semangat! 📚';}
-  document.getElementById('angka-result-trophy').textContent=trophy;document.getElementById('angka-result-msg').textContent=msg;
-  if(kuisAngkaScore===KUIS_TOTAL)launchConfetti();speak('Kuis selesai. Nilaimu '+kuisAngkaScore+' dari '+KUIS_TOTAL+'. '+msg,1.0);
+  document.getElementById('kuis-angka-game').style.display='none';
+  document.getElementById('kuis-angka-result').classList.add('show');
+  document.getElementById('angka-score-final').textContent=kuisAngkaScore+'/'+KUIS_TOTAL;
+  document.getElementById('progress-angka').style.width='100%';
+  var trophy='🏆',msg='';
+  if(kuisAngkaScore===KUIS_TOTAL){trophy='🥇';msg=currentUser+' sempurna! Kamu jenius! 🌟🎉';}
+  else if(kuisAngkaScore>=8){trophy='🏆';msg='Bagus sekali, '+currentUser+'! 😊';}
+  else if(kuisAngkaScore>=5){trophy='🥈';msg='Lumayan, '+currentUser+'! Bisa lebih baik lagi! 💪';}
+  else{trophy='🥉';msg='Ayo latihan lagi, '+currentUser+'! Semangat! 📚';}
+  document.getElementById('angka-result-trophy').textContent=trophy;
+  document.getElementById('angka-result-title').textContent=currentUser+', Keren Sekali!';
+  document.getElementById('angka-result-msg').textContent=msg;
+  if(kuisAngkaScore===KUIS_TOTAL) launchConfetti();
+  speak('Kuis selesai. '+currentUser+', nilaimu '+kuisAngkaScore+' dari '+KUIS_TOTAL+'. '+msg, 1.0);
 }
 
-// HELPERS
-function getRandomLetters(exclude,n){var pool=LETTERS.filter(function(l){return l!==exclude;}),res=[];while(res.length<n){var l=pool[Math.floor(Math.random()*pool.length)];if(res.indexOf(l)===-1)res.push(l);}return res;}
-function getRandomNumbers(exclude,n){var res=[],tries=0;while(res.length<n&&tries<100){tries++;var v=Math.floor(Math.random()*21);if(v!==exclude&&res.indexOf(v)===-1)res.push(v);}return res;}
-function shuffle(arr){return arr.slice().sort(function(){return Math.random()-0.5;});}
+// ===================== CONFETTI =====================
 function launchConfetti(){
   var colors=['#FF6B6B','#FFD93D','#6BCB77','#5BC4F5','#C77DFF'];
-  for(var i=0;i<60;i++){(function(idx){setTimeout(function(){var el=document.createElement('div');el.className='confetti-piece';var c=colors[Math.floor(Math.random()*colors.length)];el.style.left=(Math.random()*100).toFixed(1)+'vw';el.style.top='-10px';el.style.background=c;el.style.borderRadius=Math.random()>.5?'50%':'3px';el.style.width=(8+Math.random()*10).toFixed(1)+'px';el.style.height=(8+Math.random()*10).toFixed(1)+'px';el.style.animationDuration=(1.5+Math.random()*1.5).toFixed(2)+'s';el.style.animationDelay=(Math.random()*0.5).toFixed(2)+'s';document.body.appendChild(el);setTimeout(function(){el.remove();},3000);},idx*40);})(i);}
+  for(var i=0;i<60;i++){(function(idx){setTimeout(function(){
+    var el=document.createElement('div'); el.className='confetti-piece';
+    el.style.left=(Math.random()*100).toFixed(1)+'vw'; el.style.top='-10px';
+    el.style.background=colors[Math.floor(Math.random()*colors.length)];
+    el.style.borderRadius=Math.random()>.5?'50%':'3px';
+    el.style.width=(8+Math.random()*10).toFixed(1)+'px'; el.style.height=(8+Math.random()*10).toFixed(1)+'px';
+    el.style.animationDuration=(1.5+Math.random()*1.5).toFixed(2)+'s'; el.style.animationDelay=(Math.random()*0.5).toFixed(2)+'s';
+    document.body.appendChild(el); setTimeout(function(){el.remove();},3000);
+  },idx*40);})(i);}
 }
-
-document.addEventListener('DOMContentLoaded', function(){ goHome(); });
 </script>
 </body>
 </html>
