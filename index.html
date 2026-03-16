@@ -101,7 +101,8 @@
     .mode-angka-nav .tab-btn.active { color: #fff; border-color: #fff; transform: translateY(-2px); }
     .mode-angka-nav .tab-btn:nth-child(1).active { background:var(--sky);   box-shadow:0 6px 18px rgba(91,196,245,.35); }
     .mode-angka-nav .tab-btn:nth-child(2).active { background:var(--teal);  box-shadow:0 6px 18px rgba(32,201,165,.35); }
-    .mode-angka-nav .tab-btn:nth-child(3).active { background:var(--purple);box-shadow:0 6px 18px rgba(199,125,255,.35); }
+    .mode-angka-nav .tab-btn:nth-child(3).active { background:var(--coral); box-shadow:0 6px 18px rgba(255,107,107,.35); }
+    .mode-angka-nav .tab-btn:nth-child(4).active { background:var(--purple);box-shadow:0 6px 18px rgba(199,125,255,.35); }
 
     /* MAIN */
     main { position: relative; z-index: 5; padding: 20px 16px 40px; max-width: 1000px; margin: 0 auto; }
@@ -175,8 +176,19 @@
     .kata-speak-btn:hover { background:var(--sun); border-color:var(--peach); color:#333; }
     .tulis-container { background:#fff; border-radius:24px; padding:24px; box-shadow:0 6px 26px var(--shadow); }
     .tulis-letter-select { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px; justify-content:center; }
-    .tulis-letter-btn { width:44px; height:44px; font-family:'Baloo 2',cursive; font-size:1.2rem; font-weight:800; background:#f5f5f5; border:2px solid #eee; border-radius:10px; cursor:pointer; transition:all .2s; }
+    .tulis-letter-btn { width:48px; height:54px; font-family:'Baloo 2',cursive; font-size:1.2rem; font-weight:800; background:#f5f5f5; border:2px solid #eee; border-radius:10px; cursor:pointer; transition:all .2s; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; }
     .tulis-letter-btn:hover,.tulis-letter-btn.active { background:var(--coral); color:#fff; border-color:var(--coral); transform:scale(1.1); }
+    .tulis-letter-btn .lbtn-sound { font-size:0.55rem; opacity:0.55; line-height:1; font-family:'Nunito',sans-serif; }
+    .tulis-letter-btn:hover .lbtn-sound,.tulis-letter-btn.active .lbtn-sound { opacity:1; }
+    /* TULIS ANGKA */
+    .tulis-number-btn { width:58px; height:58px; font-family:'Baloo 2',cursive; font-size:1.3rem; font-weight:800; background:#f5f5f5; border:2px solid #eee; border-radius:10px; cursor:pointer; transition:all .2s; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; }
+    .tulis-number-btn:hover,.tulis-number-btn.active { background:var(--sky); color:#fff; border-color:var(--sky); transform:scale(1.1); }
+    .tulis-number-btn .nbtn-word { font-size:0.48rem; font-weight:800; opacity:0.6; line-height:1; font-family:'Nunito',sans-serif; max-width:54px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; text-align:center; }
+    .tulis-number-btn:hover .nbtn-word,.tulis-number-btn.active .nbtn-word { opacity:1; }
+    .guide-number-box { width:200px; height:200px; flex-shrink:0; background:linear-gradient(135deg,#e0f5ff,#d0eeff); border-radius:20px; display:flex; align-items:center; justify-content:center; position:relative; border:3px dashed #5BC4F5; }
+    .guide-number { font-family:'Baloo 2',cursive; font-size:9rem; font-weight:800; color:rgba(30,130,200,0.20); line-height:1; user-select:none; }
+    .guide-number-label { position:absolute; bottom:8px; font-size:0.8rem; font-weight:800; color:#7bbfe8; text-transform:uppercase; letter-spacing:1px; }
+    #draw-canvas-angka { display:block; border:3px dashed #e0e0e0; border-radius:16px; background:#fafafa; cursor:crosshair; touch-action:none; }
     .canvas-wrapper { display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start; }
     /* FIX #3: Guide letter lebih jelas dan besar */
     .guide-letter-box { width:200px; height:200px; flex-shrink:0; background:linear-gradient(135deg,#fff0d0,#ffd6d6); border-radius:20px; display:flex; align-items:center; justify-content:center; position:relative; border: 3px dashed #ffb347; }
@@ -493,6 +505,28 @@
         <div class="hitung-problem" id="hitung-problem"></div>
       </div>
     </section>
+    <section id="sec-tulis-angka" class="section">
+      <div class="section-title">Latihan <span class="hl-blue">Menulis Angka</span> ✏️</div>
+      <div class="tulis-container">
+        <p style="font-weight:700;color:#888;margin-bottom:12px;font-size:0.9rem;">Pilih angka yang ingin ditulis (klik untuk pilih + dengar suara):</p>
+        <div class="tulis-letter-select" id="tulis-numbers"></div>
+        <div class="canvas-wrapper">
+          <div class="guide-number-box">
+            <div class="guide-number" id="guide-number">1</div>
+            <div class="guide-number-label" id="guide-number-word">satu</div>
+          </div>
+          <div class="draw-section">
+            <h4>Tuliskan di sini! <span class="stroke-badge" id="stroke-badge-angka">0 goresan</span></h4>
+            <canvas id="draw-canvas-angka" width="300" height="200"></canvas>
+            <div class="canvas-controls">
+              <button class="ctrl-btn ctrl-clear" type="button" onclick="clearCanvasAngka()">🗑️ Hapus</button>
+              <div class="ctrl-color-group" id="color-group-angka"></div>
+              <input type="range" class="size-slider" id="brush-size-angka" min="4" max="28" value="12">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <section id="sec-kuis-angka" class="section">
       <div class="kuis-header blue"><h3>🎯 Kuis Angka!</h3><div class="score-badge">⭐ <span id="score-angka-display">0</span> / <span id="total-angka-display">10</span></div></div>
       <div class="progress-bar-outer"><div class="progress-bar-inner blue" id="progress-angka" style="width:0%"></div></div>
@@ -789,12 +823,12 @@ function enterMode(mode) {
     document.getElementById('header-title').innerHTML = '🔢 Angka &amp; Berhitung <span class="star">✨</span>';
     document.getElementById('header-sub').textContent = 'Belajar angka 0 sampai 20';
     nav.className = 'nav-tabs mode-angka-nav';
-    [{id:'angka',label:'🔢 Angka'},{id:'hitung',label:'🧮 Berhitung'},{id:'kuis-angka',label:'🎯 Kuis'}].forEach(function(t,i){
+    [{id:'angka',label:'🔢 Angka'},{id:'hitung',label:'🧮 Berhitung'},{id:'tulis-angka',label:'✏️ Tulis'},{id:'kuis-angka',label:'🎯 Kuis'}].forEach(function(t,i){
       var btn=document.createElement('button'); btn.className='tab-btn'+(i===0?' active':''); btn.textContent=t.label;
       (function(tid){btn.onclick=function(){showAngkaTab(this,tid);};})(t.id); nav.appendChild(btn);
     });
     if(!document.getElementById('number-grid').children.length) buildNumberGrid();
-    showNumberDetail(0); initHitung();
+    showNumberDetail(0); initHitung(); buildTulisNumbers(); buildColorGroupAngka(); initCanvasAngka();
   }
 }
 function showHurufTab(btn,id){
@@ -808,6 +842,7 @@ function showAngkaTab(btn,id){
   document.querySelectorAll('.mode-angka-nav .tab-btn').forEach(function(b){b.classList.remove('active');});
   document.getElementById('sec-'+id).classList.add('active'); btn.classList.add('active');
   if(id==='kuis-angka'&&kuisAngkaQ.length===0) startAngkaKuis();
+  if(id==='tulis-angka'){ buildTulisNumbers(); buildColorGroupAngka(); initCanvasAngka(); }
 }
 
 // ===================== SPEAK ACTIONS =====================
@@ -915,8 +950,9 @@ function buildKataGrid() {
 function buildTulisLetters() {
   var cont=document.getElementById('tulis-letters');
   LETTERS.forEach(function(l){
-    var btn=document.createElement('button'); btn.className='tulis-letter-btn'; btn.textContent=l; btn.id='tlbtn-'+l; btn.type='button';
-    (function(ll){btn.onclick=function(){selectTulisLetter(ll);};})(l); cont.appendChild(btn);
+    var btn=document.createElement('button'); btn.className='tulis-letter-btn'; btn.id='tlbtn-'+l; btn.type='button';
+    btn.innerHTML = l + '<span class="lbtn-sound">🔊</span>';
+    (function(ll){btn.onclick=function(){selectTulisLetter(ll); speak('Huruf '+ll, 0.88);};})(l); cont.appendChild(btn);
   });
   selectTulisLetter('A');
 }
@@ -945,6 +981,54 @@ function initCanvas() {
 }
 function clearCanvas(){var c=document.getElementById('draw-canvas');c.getContext('2d').clearRect(0,0,c.width,c.height);strokeCount=0;updateStrokeBadge();}
 function updateStrokeBadge(){document.getElementById('stroke-badge').textContent=strokeCount+' goresan';}
+
+// ===================== TULIS ANGKA =====================
+var drawColorAngka = '#2D2D2D';
+var isDrawingAngka = false, lastXA = 0, lastYA = 0, strokeCountAngka = 0, lastPointerUpAngka = true;
+var angkaCanvasInit = false;
+
+function buildTulisNumbers() {
+  var cont = document.getElementById('tulis-numbers');
+  if(cont.children.length) return;
+  for(var i=0;i<=20;i++){
+    var btn=document.createElement('button'); btn.className='tulis-number-btn'; btn.id='tnbtn-'+i; btn.type='button';
+    var word=NUMBER_WORDS[i];
+    btn.innerHTML = i + '<span class="nbtn-word">'+word+'</span><span class="nbtn-sound">🔊</span>';
+    (function(n){btn.onclick=function(){ selectTulisNumber(n); speak('Angka '+NUMBER_WORDS[n], 0.88); };})(i);
+    cont.appendChild(btn);
+  }
+  selectTulisNumber(1);
+}
+function selectTulisNumber(n) {
+  document.querySelectorAll('.tulis-number-btn').forEach(function(b){b.classList.remove('active');});
+  var btn=document.getElementById('tnbtn-'+n); if(btn) btn.classList.add('active');
+  document.getElementById('guide-number').textContent = n;
+  document.getElementById('guide-number-word').textContent = NUMBER_WORDS[n];
+  clearCanvasAngka();
+}
+function buildColorGroupAngka() {
+  var grp=document.getElementById('color-group-angka');
+  if(grp.children.length) return;
+  DRAW_COLORS.forEach(function(c){
+    var dot=document.createElement('div'); dot.className='color-dot'+(c===drawColorAngka?' active':''); dot.style.background=c;
+    (function(cc){dot.onclick=function(){drawColorAngka=cc;document.querySelectorAll('#color-group-angka .color-dot').forEach(function(d){d.classList.remove('active');});dot.classList.add('active');};})(c);
+    grp.appendChild(dot);
+  });
+}
+function initCanvasAngka() {
+  if(angkaCanvasInit) return;
+  angkaCanvasInit = true;
+  var canvas=document.getElementById('draw-canvas-angka'), ctx=canvas.getContext('2d');
+  ctx.lineCap='round'; ctx.lineJoin='round';
+  function getPos(e){var r=canvas.getBoundingClientRect(),sx=canvas.width/r.width,sy=canvas.height/r.height;if(e.touches&&e.touches.length>0)return[(e.touches[0].clientX-r.left)*sx,(e.touches[0].clientY-r.top)*sy];return[(e.clientX-r.left)*sx,(e.clientY-r.top)*sy];}
+  function startDraw(e){e.preventDefault();isDrawingAngka=true;if(lastPointerUpAngka){strokeCountAngka++;updateStrokeBadgeAngka();lastPointerUpAngka=false;}var p=getPos(e);lastXA=p[0];lastYA=p[1];ctx.fillStyle=drawColorAngka;ctx.beginPath();var sz=+document.getElementById('brush-size-angka').value;ctx.arc(lastXA,lastYA,sz/2,0,Math.PI*2);ctx.fill();}
+  function draw(e){e.preventDefault();if(!isDrawingAngka)return;var p=getPos(e),sz=+document.getElementById('brush-size-angka').value;ctx.strokeStyle=drawColorAngka;ctx.lineWidth=sz;ctx.beginPath();ctx.moveTo(lastXA,lastYA);ctx.lineTo(p[0],p[1]);ctx.stroke();lastXA=p[0];lastYA=p[1];}
+  function endDraw(e){if(e)e.preventDefault();isDrawingAngka=false;lastPointerUpAngka=true;}
+  canvas.addEventListener('mousedown',startDraw); canvas.addEventListener('mousemove',draw); canvas.addEventListener('mouseup',endDraw); canvas.addEventListener('mouseleave',endDraw);
+  canvas.addEventListener('touchstart',startDraw,{passive:false}); canvas.addEventListener('touchmove',draw,{passive:false}); canvas.addEventListener('touchend',endDraw,{passive:false});
+}
+function clearCanvasAngka(){var c=document.getElementById('draw-canvas-angka');if(c)c.getContext('2d').clearRect(0,0,c.width,c.height);strokeCountAngka=0;updateStrokeBadgeAngka();}
+function updateStrokeBadgeAngka(){var el=document.getElementById('stroke-badge-angka');if(el)el.textContent=strokeCountAngka+' goresan';}
 
 // ===================== ANGKA =====================
 function buildNumberGrid(){
